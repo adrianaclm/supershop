@@ -9,14 +9,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <title>@yield('title', $config->seo_title)</title>
-    <meta name="description" content=@yield('description', $config->seo_description) />
     <meta property="og:type" content="website" />
-    <meta property="og:description" content=@yield('description', $config->seo_description) />
     <meta property="og:url" content=@yield('url', 'https://supershopep.com') />
     <meta property="og:site_name" content="supershopep.com" />
-    <meta property="og:image" content=@yield('imagen', $config->seo_urlfoto)  />
     <link rel="canonical" href=@yield('url', 'https://supershopep.com') />
-    <link rel="shortcut icon" href=@yield('urlfavicon', $config->urlfavicon) type="image/jpg" width="10" />
 
     <!-- Fonts -->
 
@@ -39,8 +35,7 @@
         <div class="container-fluid">
             <!-- icono -->
             <a class="navbar-brand d d-md-block d-xl-block" href="{{ url('/#') }}">
-                <img src={!! asset('img/configuracion/' . $config->logo) !!} alt="supershop" width="200" height="35"
-                    class="d-inline-block aling-text-top" />
+                <img alt="supershop" width="200" height="35" class="d-inline-block aling-text-top" src={{ asset('img/configuracion/' . $config->logo) }} />
             </a>
 
             <!-- boton del menu-->

@@ -9,14 +9,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <title>@yield('title', $config->seo_title)</title>
-    <meta name="description" content=@yield('description', $config->seo_description) />
+    <meta name="description" content=@yield('$config->seo_description') />
     <meta property="og:type" content="website" />
     <meta property="og:description" content=@yield('description', $config->seo_description) />
     <meta property="og:url" content=@yield('url', 'https://supershopep.com') />
     <meta property="og:site_name" content="supershopep.com" />
     <meta property="og:image" content=@yield('imagen', $config->seo_urlfoto)  />
     <link rel="canonical" href=@yield('url', 'https://supershopep.com') />
-    <link rel="shortcut icon" href=@yield('urlfavicon', $config->urlfavicon) type="image/jpg" width="10" />
+    <link rel="shortcut icon" type="image/jpg" width="10" content=@yield('urlfavicon', $config->urlfavicon)  />
 
     <!-- Fonts -->
 
