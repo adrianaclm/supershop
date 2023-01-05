@@ -86,7 +86,7 @@
                             <a class="nav-link position-relative" href="{{ route('cart.index') }}">
                                 <i class="is fa-solid fa-cart-shopping"></i>
                                 <span id=bola class="badge rounded-pill bg-danger border border-light">
-                                    <b>{{ /Cart::getTotalQuantity() }}</b>
+                                    <b>{{ Cart::getTotalQuantity() }}</b>
                                     <span class="visually-hidden">Artículos en carrito</span>
                             </a>
                         </li>
