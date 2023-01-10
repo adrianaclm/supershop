@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <!-- CSRF Token-->
+    <meta name="csrf-token" content="{{ csrf_token() }}" /> 
 
     <title>@yield('title', $config->seo_title)</title>
     <meta name="description" content=@yield('$config->seo_description') />
@@ -86,7 +86,7 @@
                             <a class="nav-link position-relative" href="{{ route('cart.index') }}">
                                 <i class="is fa-solid fa-cart-shopping"></i>
                                 <span id=bola class="badge rounded-pill bg-danger border border-light">
-                                    <b>{{ Cart::getTotalQuantity() }}</b>
+                                    <b>{{ Cart::session(csrf_token())->getTotalQuantity(); }}</b>
                                     <span class="visually-hidden">Artículos en carrito</span>
                             </a>
                         </li>

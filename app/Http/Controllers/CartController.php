@@ -87,7 +87,7 @@ class CartController extends Controller
             return redirect()->back();
         }
     }*/
-   
+
 
     public function shop()
     {
@@ -95,14 +95,14 @@ class CartController extends Controller
         $cartCollection = \Cart::getContent();
 
         dd($productos);
-        return view('shop')->with(compact('productos', 'cartCollection' ));
+        return view('shop')->with(compact('productos', 'cartCollection'));
     }
 
     public function cart()
     {
         $cartCollection = \Cart::getContent();
         //dd($cartCollection);
-        return view('cart.cart')->with(compact('cartCollection' ));
+        return view('cart.cart')->with(compact('cartCollection'));
     }
 
     public function remove(Request $request)
@@ -152,10 +152,12 @@ class CartController extends Controller
 
     public function proceso(Request $request)
     {
+
         //$request->session()->put('key', 'value');
 
-        if //((Auth::authenticate() == null)){      
-        (\Cart::getContent()->count() > 0) {
+        //((Auth::authenticate() == null)){  
+
+        if (\Cart::session(csrf_token())->getContent()->count() > 0) {
             $pedido = new Pedido();
             $pedido->subtotal = \Cart::getSubTotal();
             $pedido->impuesto = \Cart::getSubTotal() * 0.16;
@@ -163,12 +165,11 @@ class CartController extends Controller
             $pedido->fecha = now();
             $pedido->cedula = strtoupper($request->input('cedula'));
             $pedido->estados_id = 1;
+            $pedido->cart_id = csrf_token();
             //$pedido->user_id = Auth::user()->id;
             $pedido->save();
 
             //$productos = Pedido::where(Session::get('cedula'))->get();
-
-            
 
             $string = "";
 
@@ -198,16 +199,29 @@ class CartController extends Controller
             //echo "<script>window.location.href='https://api.whatsapp.com/send?phone=584122189082&text=Quiero%20información%20sobre%20mi%20compra'</script>";
 
             $cartCollection = \Cart::getContent();
-            
-            //$pedido = Pedido::where(Session::get('cedula'))->get();
-            $pedido = Pedido::select('id')
-            ->get()
-            ->last();
+
+            //$pedido = Pedido::where(Session::get('cedula'))->get('id');
+            // $pedido = Pedido::select('id')
+            //->where(Session::get());
+
+            //$request->session()->Pedido::get('cedula');
+            //$pedido->cedula = strtoupper($request->input('cedula'));
 
             //Session::put('sessionuser');
+            //$session = Pedido::findOrFail('cart_id');
 
-            return view('cart.checkout')->with(compact('cartCollection', 'pedido'));//(['cartCollection' => $cartCollection], ['pedido' => $pedido]); //('success_msg', '¡Su pedido está siendo procesado!');;
+            //(['cartCollection' => $cartCollection], ['pedido' => $pedido]); //('success_msg', '¡Su pedido está siendo procesado!');;
         }
+        return view('cart.checkout')->with(compact('cartCollection', 'pedido'));
+
+        /**{
+            if ($sessi->csrf_token() = $cart_id) {
+
+                Cart::clear();
+
+                //return view('cart.failpay');
+            }
+        }**/
     }
 
     protected function validator(array $data)

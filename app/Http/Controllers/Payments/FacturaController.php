@@ -13,7 +13,8 @@ class FacturaController extends Controller
 {
     public function create(Request $data)
     {
-        //Session::put('cedula', $cedula);
+        Session::put('sessi', csrf_token());
+
         //$productos = Pedido::where(Session::get('cedula'))->get();
 
         $pedido = Pedido::get();
@@ -27,7 +28,7 @@ class FacturaController extends Controller
             'address'   => $data['address'],
         ]);
 
-        return $user->with(compact('user', 'pedido'));
+        return view('cart.checkout')->with(compact('user', 'pedido'));
     }
 
 
@@ -39,7 +40,7 @@ class FacturaController extends Controller
             'name'      => ['required, string, min:3, max:20'],
             'lastname'  => ['required, string, min:3, max:20'],
             'email'     => ['required, string, email, max:50'],
-            'telefono'  => ['required,regex:/^([0-9\s\-\+\(\)]*)$/, min:11, max:11'],
+            'telefono'  => ['required, regex:/^([0-9\s\-\+\(\)]*)$/, min:11, max:11'],
             'address'   => ['required, string, max:150'],
         ]);
 

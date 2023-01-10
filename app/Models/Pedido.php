@@ -17,7 +17,8 @@ class Pedido extends Model
         'fecha',
         'cedula',
         'estados_id',
-        'user_id'
+        'user_id',
+        'cart_id'
     ];
 
     public function users(){

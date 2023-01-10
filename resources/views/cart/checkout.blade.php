@@ -2,9 +2,7 @@
 
 @section('content')
 
-<?php
 
-?>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,7 +23,7 @@
                     <li class="breadcrumb-item active" aria-current="page"><a href="{{ url('/#') }}">Regresar</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Resumen de Orden</li>
                     <li class="breadcrumb-item active" aria-current="page">Detalle de Compra</li>
-                    <li class="breadcrumb-item active" aria-current="page">Nro. Pedido: {{ $pedido->id }} </li>
+                    <li class="breadcrumb-item active" aria-current="page">Nro. Pedido: </li>
 
                 </ol>
 
@@ -241,6 +239,7 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>

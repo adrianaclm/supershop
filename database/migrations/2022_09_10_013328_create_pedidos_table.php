@@ -21,6 +21,7 @@ return new class extends Migration
             $table->timestamp('fecha')->now();
             $table->string('cedula');
             $table->foreignId('user_id')->references('id')->on('users');
+            $table->string('cart_id');
             $table->foreignId('estados_id')->references('id')->on('estados')->default(1);          
 
         });

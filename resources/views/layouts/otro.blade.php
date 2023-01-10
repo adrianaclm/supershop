@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <!-- CSRF Token 
+    <meta name="csrf-token" content="{{ csrf_token() }}" />-->
 
     <title>@yield('title', $config->seo_title)</title>
     <meta property="og:type" content="website" />
@@ -25,6 +25,7 @@
         href="https://fonts.googleapis.com/css2?family=Comic+Neue&family=Dancing+Script:wght@700&family=Montserrat:wght@200;500&display=swap"
         rel="stylesheet">
     <!-- Scripts -->
+
     @vite(['resources/css/app.scss', 'resources/js/app.js'])
 </head>
 

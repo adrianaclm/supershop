@@ -52,9 +52,9 @@ Route::post('/tienda/add', [App\Http\Controllers\CartController::class, 'add'])-
 Route::post('/tienda/update', [App\Http\Controllers\CartController::class, 'update'])->name('cart.update');
 Route::post('/tienda/remove', [App\Http\Controllers\CartController::class, 'remove'])->name('cart.remove');
 Route::post('/tienda/clear', [App\Http\Controllers\CartController::class, 'clear'])->name('cart.clear');
-Route::any('/tienda/procesar', [App\Http\Controllers\CartController::class, 'proceso'])->name('card.procesar');
+Route::post('/tienda/procesar/', [App\Http\Controllers\CartController::class, 'proceso'])->name('card.procesar');
 
-Route::any('/tienda/procesar/confirmar', [App\Http\Controllers\Payments\FacturaController::class, 'create'])->name('card.confirmar');
+Route::any('/tienda/confirmar', [App\Http\Controllers\Payments\FacturaController::class, 'create'])->name('card.confirmar');
 
 
 
