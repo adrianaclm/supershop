@@ -4,31 +4,76 @@ namespace App\Http\Controllers\Payments;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pedido;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Darryldecode\Cart\Cart;
+
 
 class FacturaController extends Controller
 {
-    public function create(Request $data)
+ 
+    public function index()
     {
-        Session::put('sessi', csrf_token());
+        $cartCollection = \Cart::getContent();
+        $pedido = Pedido::get('id')->last();
 
-        //$productos = Pedido::where(Session::get('cedula'))->get();
+        return view('cart.checkout')->with(compact('cartCollection', 'pedido'));
+    }
 
-        $pedido = Pedido::get();
+    public function create(Request $request, $pedido)
+    {
+        $cart_id = Pedido::get('cart_id');
 
-        $user = User::create([
-            'name'      => $data['name'],
-            'lastname'  => $data['lastname'],
-            'cedula'    => $data[Pedido::where(Session::get('cedula'))->get()],
-            'email'     => $data['email'],
-            'telefono'  => $data['telefono'],
-            'address'   => $data['address'],
-        ]);
+        if ($cart_id = csrf_token()) {
+            $user = new User();
+            $user->name = strtoupper($request->input('name'));
+            $user->lastname = strtoupper($request->input('lastname'));
+            $user->cedula = Pedido::getActual('cedula');  
+            $user->email = strtoupper($request->input('email'));
+            $user->address = strtoupper($request->input('address'));
+            $user->telefono = strtoupper($request->input('telefono'));
+            $user->save();
+        }else{
+            session()->regenerate();
+            \Cart::clear();
 
-        return view('cart.checkout')->with(compact('user', 'pedido'));
+        };
+
+        $cartCollection = \Cart::getContent();
+
+
+        // $validator = Validator::make($request->all(), [
+        //     'name'      => ['required', 'string', 'min:3', 'max:20'],
+        //     'lastname'  => 'required| string| min:3| max:20',
+        //     'email'     => 'required| string| email| max:50',
+        //     'telefono'  => 'required| regex:/^[](0-9\s\-\+\(\)]*)$/| min:11| max:11',
+        //     'address'   => 'required| string| max:150',
+        // ]);
+
+        // if ($validator->fails()) {
+        //     return redirect()->back()->withInput()->withErrors($validator->errors());
+        // } else {
+
+        //     // SEND EMAIL
+        //     $this->sendNotification($data);
+
+        //     return redirect()
+        //         ->back()
+        //         ->with('success' | trans('web.contact_form_send'));
+        // }
+
+
+
+        //$user->create($request->all());
+        //$users = User::all();
+
+        return view('cart.successpay')->with(compact('user', 'pedido', 'id', 'cartCollection'));
+
+
+        //return redirect()->route('card.confirmar')->with(compact('user', 'pedido', 'cartCollection'));
     }
 
 
@@ -36,27 +81,28 @@ class FacturaController extends Controller
     public function validator(array $data)
     {
 
-        $validator = Validator::make($data, [
-            'name'      => ['required, string, min:3, max:20'],
-            'lastname'  => ['required, string, min:3, max:20'],
-            'email'     => ['required, string, email, max:50'],
-            'telefono'  => ['required, regex:/^([0-9\s\-\+\(\)]*)$/, min:11, max:11'],
-            'address'   => ['required, string, max:150'],
-        ]);
+        //$validator = Validator::make($data, [
+        // 'name'      => 'required| string| min:3| max:20',
+        // 'lastname'  => 'required| string| min:3| max:20',
+        // 'email'     => 'required| string| email| max:50',
+        // 'telefono'  => 'required| regex:/^(0-9\s\-\+\(\)]*)$/| min:11| max:11',
+        // 'address'   => 'required| string| max:150',
+        //]);
 
-        if ($validator->fails()) {
-            return back()->withErrors($validator);
-        }else{
+        //if ($validator->fails()) {
+        //    return back()->withErrors($validator);
+        //} else {
 
-            // SEND EMAIL
-            $this->sendNotification($data);
+        // SEND EMAIL
+        //    $this->sendNotification($data);
 
-            return redirect()
-                ->back()
-                ->with('success', trans('web.contact_form_send'));
-        }
-        
+        //    return redirect()
+        //        ->back()
+        //        ->with('success' | trans('web.contact_form_send'));
+        //}
 
-        return view('card.confirmar')->with(['user' => $user]);
+        $cartCollection = \Cart::getContent();
+
+        return view('card.confirmar')->with(compact('user', 'cartCollection'));
     }
 }

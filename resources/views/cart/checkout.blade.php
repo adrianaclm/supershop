@@ -23,7 +23,7 @@
                     <li class="breadcrumb-item active" aria-current="page"><a href="{{ url('/#') }}">Regresar</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Resumen de Orden</li>
                     <li class="breadcrumb-item active" aria-current="page">Detalle de Compra</li>
-                    <li class="breadcrumb-item active" aria-current="page">Nro. Pedido: </li>
+                    <li class="breadcrumb-item active" aria-current="page">Nro. Pedido: {{ $pedido->id }} </li>
 
                 </ol>
 
@@ -90,7 +90,7 @@
                                         <hr>
 
 
-                                        <form method="post" action="{{ route('card.confirmar') }}">
+                                        <form method="post" action="{{ route('card.create') }}">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">
@@ -240,6 +240,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 
+    <script>
+        if (window.history.replaceState) { // verificamos disponibilidad
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
 </body>
 
 </html>

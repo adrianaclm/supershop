@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('cedula');
             $table->string('email');
             $table->timestamp('email_verified_at');
-            $table->string('password');
+            $table->string('password')->default('12345'); //prueba
             $table->boolean('tipo')->default(1); // 1=cliente , 0=admin
             $table->boolean('estado')->default(1); // 1=activado, 0=no activado
             $table->string('telefono')->nullable();

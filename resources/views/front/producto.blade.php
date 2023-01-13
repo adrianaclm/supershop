@@ -14,7 +14,7 @@
         <div class="row justify-content-center">
             <div class="row mt-5">
                 <div class="col-sm-12 col-md-6 col-lg-6 ">
-                    <img src={{ asset('img/producto/' . $producto->image) }} class="descripcion border rounded-4">
+                    <img class="descripcion border rounded-4" src={{ asset('img/producto/' .$producto->image) }} >
                 </div>
 
                 <div class="col-12-sm col-md-6 col-lg-6 ">

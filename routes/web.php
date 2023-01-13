@@ -54,7 +54,8 @@ Route::post('/tienda/remove', [App\Http\Controllers\CartController::class, 'remo
 Route::post('/tienda/clear', [App\Http\Controllers\CartController::class, 'clear'])->name('cart.clear');
 Route::post('/tienda/procesar/', [App\Http\Controllers\CartController::class, 'proceso'])->name('card.procesar');
 
-Route::any('/tienda/confirmar', [App\Http\Controllers\Payments\FacturaController::class, 'create'])->name('card.confirmar');
+Route::any('/tienda/procesar/confirmacion', [App\Http\Controllers\Payments\FacturaController::class, 'index'])->name('card.confirmar');
+Route::any('/tienda/procesar/facturacion/', [App\Http\Controllers\Payments\FacturaController::class, 'create'])->name('card.create');
 
 
 
@@ -65,7 +66,7 @@ Route::group(['prefix' => 'cliente', 'middleware' => ['auth', 'role:cliente']], 
 });
 
 
-Route::get('/', [App\Http\Controllers\FrontController::class, 'index'])->name('inicio');
+Route::get('tienda/', [App\Http\Controllers\FrontController::class, 'index'])->name('inicio');
 //Route::post('/buscador', [App\Http\Controllers\FrontController::class, 'buscador'])->name('buscador');
 /*Route::view('/contacto', 'front.contacto');
 Route::get('/empresa', [App\Http\Controllers\FrontController::class, 'empresa']);

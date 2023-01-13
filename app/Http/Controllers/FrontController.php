@@ -26,15 +26,6 @@ class FrontController extends Controller
         
         return view('front.categoria', compact('categoria')); 
     }
-
-    //descripcion del producto
-    //public function show(){
-     //   $producto = Producto::orderBy('id')->take(1)->get();
-       // return view('front.producto', compact('producto'));
-    //    $productos = Producto::all();
-    //    return view('front.producto', compact('productos'));
-   
-    //}
     
     public function producto($id)
     {
@@ -58,11 +49,7 @@ class FrontController extends Controller
         return view('front.producto', compact('producto', 'prd'));
     }
 
-    public function checkout(){
-        $cartCollection = \Cart::getContent();
-        return view('cart.checkout')->with('success_msg', '¡Su pedido está siendo procesado!');
-    }
-    
+   
    
 }
 

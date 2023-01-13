@@ -38,7 +38,7 @@
     <nav class="navbar navbar-expand-md navbar-light sticky-top bg-white shadow-sm">
         <div class="container-fluid">
             <!-- icono -->
-            <a class="navbar-brand d d-md-block d-xl-block" href="{{ url('/#') }}">
+            <a class="navbar-brand d d-md-block d-xl-block" href="{{ url('/tienda') }}">
                 <img src={!! asset('img/configuracion/' . $config->logo) !!} alt="" width="200" height="35"
                     class="d-inline-block aling-text-top" />
             </a>
@@ -54,6 +54,7 @@
             <!--barra de busqueda-->
             <div class="collapse navbar-collapse" id="menu">
                 <form class="d-flex m-auto mb-2" role="search">
+@csrf
                     <input class="barra form-control me-3 text-center" name="buscador" id="buscador" type="search"
                         placeholder="Buscar Productos" aria-label="Search" />
                     <button class="btnb" type="submit">
@@ -86,7 +87,7 @@
                             <a class="nav-link position-relative" href="{{ route('cart.index') }}">
                                 <i class="is fa-solid fa-cart-shopping"></i>
                                 <span id=bola class="badge rounded-pill bg-danger border border-light">
-                                    <b>{{ Cart::session(csrf_token())->getTotalQuantity(); }}</b>
+                                    <b>{{ \Cart::getTotalQuantity(); }}</b>
                                     <span class="visually-hidden">Artículos en carrito</span>
                             </a>
                         </li>
