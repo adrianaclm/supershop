@@ -23,7 +23,7 @@ class FacturaController extends Controller
         return view('cart.checkout')->with(compact('cartCollection', 'pedido'));
     }
 
-    public function create(Request $request, $pedido)
+    public function create(Request $request)
     {
         $cart_id = Pedido::get('cart_id');
 
@@ -31,18 +31,20 @@ class FacturaController extends Controller
             $user = new User();
             $user->name = strtoupper($request->input('name'));
             $user->lastname = strtoupper($request->input('lastname'));
-            $user->cedula = Pedido::getActual('cedula');  
+            $user->cedula = Pedido::where('cart_id', 'iUQtHu2lZkrVLpPQlLYbmQHQoIUua4rBUleJZRju')->pluck('cedula')->first();  
             $user->email = strtoupper($request->input('email'));
             $user->address = strtoupper($request->input('address'));
             $user->telefono = strtoupper($request->input('telefono'));
             $user->save();
+
         }else{
             session()->regenerate();
-            \Cart::clear();
+            
 
         };
 
-        $cartCollection = \Cart::getContent();
+        \Cart::clear();
+        session()->regenerate();
 
 
         // $validator = Validator::make($request->all(), [
@@ -70,7 +72,7 @@ class FacturaController extends Controller
         //$user->create($request->all());
         //$users = User::all();
 
-        return view('cart.successpay')->with(compact('user', 'pedido', 'id', 'cartCollection'));
+        return view('cart.successpay');//->with(compact('user', 'pedido', 'id', 'cartCollection'));
 
 
         //return redirect()->route('card.confirmar')->with(compact('user', 'pedido', 'cartCollection'));
