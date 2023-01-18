@@ -25,6 +25,7 @@ return new class extends Migration
             $table->boolean('estado')->default(1); // 1=activado, 0=no activado
             $table->string('telefono');
             $table->text('address');
+            $table->string('user_id');
             $table->rememberToken();
             
         });

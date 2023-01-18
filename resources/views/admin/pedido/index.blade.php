@@ -19,7 +19,7 @@
                         @forelse ($estado as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
-                                <td>{{ $item->user_id}} </td> 
+                                <td>{{ $item->uid}} </td> 
                                 <td>{{ $item->fecha }}</td>
                                 <td>{{ $item->estados_id }} - {{ $item->nombre }}</td>
                                 <td>
