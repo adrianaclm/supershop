@@ -26,15 +26,17 @@ class FacturaController extends Controller
     public function create(Request $request)
     {
         $cart_id = Pedido::get('cart_id');
+        $_SESSION = csrf_token();
 
         if ($cart_id = csrf_token()) {
             $user = new User();
             $user->name = strtoupper($request->input('name'));
             $user->lastname = strtoupper($request->input('lastname'));
-            $user->cedula = Pedido::where('cart_id', 'iUQtHu2lZkrVLpPQlLYbmQHQoIUua4rBUleJZRju')->pluck('cedula')->first();  
+            $user->cedula = Pedido::where('cart_id', '=', $_SESSION)->pluck('cedula')->first();  
             $user->email = strtoupper($request->input('email'));
             $user->address = strtoupper($request->input('address'));
             $user->telefono = strtoupper($request->input('telefono'));
+            $user->coduser_id = csrf_token();
             $user->save();
 
         }else{
