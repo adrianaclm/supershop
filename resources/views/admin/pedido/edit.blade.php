@@ -18,8 +18,8 @@
                     <tbody>
                         <tr>
                             <td>{{ $pedido->id }}</td>
-                            <td>{{ $pedido->user_id }} - {{ $user->name}}</td>
-                            <td>{{ $user->direccion}}  </td>
+                            <td>{{ $user->id }} - {{ $user->name}}</td>
+                            <td>{{ $user->address}}  </td>
                         </tr>
                     </tbody>
                     
