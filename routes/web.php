@@ -1,11 +1,7 @@
 <?php
 
-use App\Http\Controllers\Payments\FacturaController;
-use Spatie\Permission\Models\Role; 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Spatie\Permission\Models\Permission;
-use Srmklive\PayPal\Facades\PayPal;
 
 
 
@@ -66,15 +62,15 @@ Route::group(['prefix' => 'cliente', 'middleware' => ['auth', 'role:cliente']], 
 });
 
 
-Route::get('tienda/', [App\Http\Controllers\FrontController::class, 'index'])->name('inicio');
+Route::get('/tienda/', [App\Http\Controllers\FrontController::class, 'index'])->name('inicio');
 //Route::post('/buscador', [App\Http\Controllers\FrontController::class, 'buscador'])->name('buscador');
 /*Route::view('/contacto', 'front.contacto');
 Route::get('/empresa', [App\Http\Controllers\FrontController::class, 'empresa']);
 */
-Route::get('tienda/{categoria:slug}', [App\Http\Controllers\FrontController::class, 'categoria'])->name('categoria');
+Route::get('/tienda/{categoria:slug}', [App\Http\Controllers\FrontController::class, 'categoria'])->name('categoria');
 
 //Route::get('tienda/productos/', [App\Http\Controllers\FrontController::class, 'productos'])->name('productos');
-Route::get('tienda/descripcion/{producto:id}', [App\Http\Controllers\FrontController::class, 'producto'])->name('producto');
+Route::get('/tienda/descripcion/{producto:id}', [App\Http\Controllers\FrontController::class, 'producto'])->name('producto');
 
 
 
