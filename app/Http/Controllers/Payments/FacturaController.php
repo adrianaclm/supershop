@@ -11,9 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Darryldecode\Cart\Cart;
 
-
-class FacturaController extends Controller
-{
+class FacturaController extends Controller{
  
     public function index()
     {
