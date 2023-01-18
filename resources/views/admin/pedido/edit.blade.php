@@ -18,7 +18,7 @@
                     <tbody>
                         <tr>
                             <td>{{ $pedido->id }}</td>
-                            <td>{{ $user->id }} - {{ $user->name}}</td>
+                            <td>{{ $user->id }} - {{ $user->name}} {{ $user->lastname}}</td>
                             <td>{{ $user->address}}  </td>
                         </tr>
                     </tbody>

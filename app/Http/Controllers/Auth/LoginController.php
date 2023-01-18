@@ -46,7 +46,7 @@ class LoginController extends Controller
         }
 
         if (\Auth::user()->HasRole('cliente')){
-            return "/";
+            return "/tienda";
         }
     }
 }

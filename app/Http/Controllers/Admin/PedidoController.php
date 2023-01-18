@@ -17,7 +17,7 @@ class PedidoController extends Controller
     {
        
         $pedidos = Pedido::paginate(10);
-        $estado = Pedido::select('pedidos.id', 'pedidos.fecha', 'pedidos.estados_id','estados.nombre', 'users.id')
+        $estado = Pedido::select('pedidos.id', 'pedidos.fecha', 'pedidos.estados_id','estados.nombre', 'users.id as uid')
         ->join('estados', 'pedidos.estados_id', '=', 'estados.id')
         ->join('users', 'pedidos.cart_id', '=', 'users.coduser_id' )
         ->get();
@@ -48,8 +48,8 @@ class PedidoController extends Controller
     public function edit($id)
     {
         $pedido = Pedido::findOrFail($id);
-        $user = User::select('users.name', 'users.address')
-        ->join('pedidos', 'users.user_id', '=', 'pedidos.cart_id')
+        $user = User::select('users.name', 'users.address', 'users.id', 'users.lastname')
+        ->join('pedidos', 'users.coduser_id', '=', 'pedidos.cart_id')
         ->where('pedidos.id', '=', $id)
         ->first();
         $productos = Detalle::select('productos.id', 'productos.nombre', 'detalles.cantidad', )
