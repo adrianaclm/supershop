@@ -83,8 +83,8 @@
                                 <hr>
 
                                 <div class="col-md-12">
-                                    <div class="shadow bg-white p-3">
-                                        <h4 class="text-primary">
+                                    <div class="shadow bg-white p-3" >
+                                        <h4 class="text-primary" >
                                             Información de Facturación
                                         </h4>
                                         <hr>
@@ -95,7 +95,7 @@
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">
                                                     <label for="name" class="col-form-label"> {{ __('Nombre: ') }} </label>
-                                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required autocomplete="name" maxlength='20' placeholder="Ingrese nombre" autofocus />
+                                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="name" maxlength='20' placeholder="Ingrese nombre" autofocus />
 
                                                     @error('name')
                                                     <span class="invalid-feedback" role="alert">
@@ -105,20 +105,48 @@
 
                                                 </div>
                                                 <div class="col-md-6 mb-3">
-                                                    <label for="cedula" class="col-form-label"> {{ __('Apellido: ') }} </label>
-                                                    <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" required autocomplete="lastname" maxlength='20' placeholder="Ingrese apellido" autofocus />
+                                                    <label for="lastname" class="col-form-label"> {{ __('Apellido: ') }} </label>
+                                                    <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" autocomplete="lastname" maxlength='20' placeholder="Ingrese apellido" autofocus />
+
+                                                    @error('lastname')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <label for="email" class="col-form-label"> {{ __('Correo Electrónico: ') }} </label>
-                                                    <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" required autocomplete="email" maxlength='50' placeholder="Ingrese correo electrónico" autofocus />
+                                                    <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" maxlength='50' placeholder="Ingrese correo electrónico" autofocus />
+                                                
+                                                    @error('email')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <label for="telefono" class="col-form-label"> {{ __('Teléfono: ') }} </label>
-                                                    <input id="telefono" type="text" class="form-control @error('telefono') is-invalid @enderror" name="telefono" placeholder="Ingrese número telefónico" autofocus />
+                                                    <input id="telefono" type="text" class="form-control @error('telefono') is-invalid @enderror" name="telefono" value="{{ old('telefono') }}" placeholder="Ingrese número telefónico" autofocus />
+                                                
+                                                    @error('telefono')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+
                                                 </div>
                                                 <div class="col-md-12 mb-3">
                                                     <label for="address" class="col-form-label"> {{ __('Dirección: ') }} </label>
-                                                    <textarea id="address" type="text" class="form-control @error('address') is-invalid @enderror" rows="2" name="address" maxlength='100' placeholder="Ingrese dirección fiscal" autofocus></textarea>
+                                                    <textarea id="address" type="text" class="form-control @error('address') is-invalid @enderror" rows="2" name="address" value="{{ old('address') }}" maxlength='100' placeholder="Ingrese dirección fiscal" autofocus></textarea>
+                                                
+                                                    @error('address')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+
                                                 </div>
                                             </div>
                                             <input type="submit" value="Procesar Orden (Retiro en tienda)" class="btn btn-primary col-md-12 mb-3">

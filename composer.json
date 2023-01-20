@@ -1,5 +1,4 @@
 {
-
 "name": "laravel/laravel",
 "type": "project",
 "description": "The Laravel Framework.",
@@ -12,7 +11,7 @@
     "darryldecode/cart": "^4.2",
     "guzzlehttp/guzzle": "^7.2",
     "intervention/image": "^2.7",
-    "laravel/framework": "^9.19",
+    "laravel/framework": "^9.0",
     "laravel/sanctum": "^3.0",
     "laravel/scout": "^9.4",
     "laravel/tinker": "^2.7",

@@ -151,6 +151,10 @@ class CartController extends Controller
 
     public function proceso(Request $request)
     {
+        $request->validate([
+            'cedula'      => ['required', 'min:6', 'max:11'],
+        ]);
+        
         if (\Cart::getContent()->count() > 0) {
             $pedido = new Pedido();
             $pedido->subtotal = \Cart::getSubTotal();

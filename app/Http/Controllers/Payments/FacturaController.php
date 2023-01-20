@@ -26,7 +26,15 @@ class FacturaController extends Controller{
         $cart_id = Pedido::get('cart_id');
         $_SESSION = csrf_token();
 
-        if ($cart_id = csrf_token()) {
+        $request->validate([
+             'name'      => ['required', 'string', 'min:3', 'max:20'],
+             'lastname'  => ['required', 'string', 'min:3', 'max:20'],
+             'email'     => ['required', 'string', 'email', 'max:50'],
+             'telefono'  => ['required', 'digits:11', 'regex:/^.+@.+$/i'],
+             'address'   => ['required', 'string', 'max:150'],
+         ]);
+
+        if ($cart_id = $_SESSION) {
             $user = new User();
             $user->name = strtoupper($request->input('name'));
             $user->lastname = strtoupper($request->input('lastname'));

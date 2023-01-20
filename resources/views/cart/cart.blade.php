@@ -98,7 +98,7 @@
                 <div class="mt-5">
                     <label for="cedula" class="col-form-label"> {{ __('Cédula de Identidad: ') }} </label>
 
-                    <input id="cedula" type="text" class="form-control @error('cedula') is-invalid @enderror" name="cedula" required autocomplete="name" minlength='7' maxlength='11' autocapitalize='characters' placeholder="Ingrese cédula de identidad" autofocus />
+                    <input id="cedula" type="text" class="form-control @error('cedula') is-invalid @enderror" name="cedula" autocomplete="name" minlength='7' maxlength='11' autocapitalize='characters' placeholder="Ingrese cédula de identidad" autofocus />
 
                     @error('cedula')
                     <span class="invalid-feedback" role="alert">
