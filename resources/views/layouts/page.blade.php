@@ -6,17 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- CSRF Token-->
-    <meta name="csrf-token" content="{{ csrf_token() }}" /> 
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <title>@yield('title', $config->seo_title)</title>
     <meta name="description" content=@yield('$config->seo_description') />
     <meta property="og:type" content="website" />
     <meta property="og:description" content=@yield('description', $config->seo_description) />
-    <meta property="og:url" content=@yield('url', 'https://supershopep.com') />
+    <meta property="og:url" content=@yield('url', 'https://supershopep.com' ) />
     <meta property="og:site_name" content="supershopep.com" />
-    <meta property="og:image" content=@yield('imagen', $config->seo_urlfoto)  />
-    <link rel="canonical" href=@yield('url', 'https://supershopep.com') />
-    <link rel="shortcut icon" type="image/jpg" width="10" content=@yield('urlfavicon', $config->urlfavicon)  />
+    <meta property="og:image" content=@yield('imagen', $config->seo_urlfoto) />
+    <link rel="canonical" href=@yield('url', 'https://supershopep.com' ) />
+    <link rel="shortcut icon" type="image/jpg" width="10" content=@yield('urlfavicon', $config->urlfavicon) />
 
     <!-- Fonts -->
 
@@ -25,9 +25,7 @@
     <script src="https://kit.fontawesome.com/29c05b9093.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Comic+Neue&family=Dancing+Script:wght@700&family=Montserrat:wght@200;500&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&family=Dancing+Script:wght@700&family=Montserrat:wght@200;500&display=swap" rel="stylesheet">
     <!-- Scripts -->
     @vite(['resources/css/app.scss', 'resources/js/app.js'])
 </head>
@@ -40,12 +38,11 @@
             <!-- icono -->
             <a class="navbar-brand d d-md-block d-xl-block" href="{{ url('/tienda') }}">
                 <img src={!! asset('img/configuracion/' . $config->logo) !!} alt="" width="200" height="35"
-                    class="d-inline-block aling-text-top" />
+                class="d-inline-block aling-text-top" />
             </a>
 
             <!-- boton del menu-->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -54,9 +51,8 @@
             <!--barra de busqueda-->
             <div class="collapse navbar-collapse" id="menu">
                 <form class="d-flex m-auto mb-2" role="search">
-@csrf
-                    <input class="barra form-control me-3 text-center" name="buscador" id="buscador" type="search"
-                        placeholder="Buscar Productos" aria-label="Search" />
+                    @csrf
+                    <input class="barra form-control me-3 text-center" name="buscador" id="buscador" type="search" placeholder="Buscar Productos" aria-label="Search" />
                     <button class="btnb" type="submit">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
@@ -66,18 +62,17 @@
                     <ul class="navbar-nav mb-2 mb-lg-0">
                         <!--listado de categorias-->
                         <li class="nav-item dropdown">
-                            <a id="catdes" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
+                            <a id="catdes" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Categorias
                             </a>
                             <ul class="dropdown-menu">
                                 @foreach ($menu as $c)
-                                    <li>
-                                        <a class="dropdown-item" href="{{ url('/tienda/' . $c->slug) }}">
-                                            <h6 id="catdes">{{ $c->nombre }} </h6>
-                                        </a>
+                                <li>
+                                    <a class="dropdown-item" href="{{ url('/tienda/' . $c->slug) }}">
+                                        <h6 id="catdes">{{ $c->nombre }} </h6>
+                                    </a>
 
-                                    </li>
+                                </li>
                                 @endforeach
                             </ul>
                         </li>
@@ -94,24 +89,21 @@
 
                         <!--acceso a cuenta-->
                         @guest @if (Route::has('login'))
-                            <li class="nav-item" id="catdes">
-                                <a class="nav-link" rel="nofollow" href="{{ route('login') }}">
-                                    <i class="is fa-solid fa-user"></i>
-                                </a>
-                            </li>
+                        <li class="nav-item" id="catdes">
+                            <a class="nav-link" rel="nofollow" href="{{ route('login') }}">
+                                <i class="is fa-solid fa-user"></i>
+                            </a>
+                        </li>
                         @endif
-                    @else
+                        @else
                         <li class="nav-item dropdown">
-                            <a id="catdes" class="nav-link dropdown-toggle" href="{{ route('logout') }}"
-                                role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                v-pre>
+                            <a id="catdes" class="nav-link dropdown-toggle" href="{{ route('logout') }}" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <i class="is fa-solid fa-user"></i>
                                 {{ Auth::user()->name }}
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="catdes">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
@@ -121,30 +113,31 @@
                                 </form>
                             </div>
                         </li>
-                    @endguest
-                </ul>
+                        @endguest
+                    </ul>
+                </div>
             </div>
-        </div>
-</nav>
+    </nav>
 
-<!-- bola de whatsapp -->
+    <!-- bola de whatsapp -->
 
-<a href="https://wa.me/582125752732" class="btn-wsp" target="_blank">
-    <i class="fa fa-whatsapp icono"></i>
-</a>
+    <a href="https://wa.me/582125752732" class="btn-wsp" target="_blank">
+        <i class="fa fa-whatsapp icono"></i>
+    </a>
 
-<script>
-    document.addEventListener("keyup", e=>{
-        if (e.target.matches("#buscador")){
-            if (e.key === "Escape")e.target.value = ""
-            document.querySelectorAll(".articulo").forEach(producto =>{
-                producto.textContent.toLowerCase().includes(e.target.value.toLowerCase())
-                ?producto.classList.remove("filtro")
-                :producto.classList.add("filtro")
-            })
-        }
-    })
-</script>
+    <script>
+        document.addEventListener("keyup", e => {
+            if (e.target.matches("#buscador")) {
+                if (e.key === "Escape") e.target.value = ""
+                document.querySelectorAll(".articulo").forEach(producto => {
+                    producto.textContent.toLowerCase().includes(e.target.value.toLowerCase()) ?
+                        producto.classList.remove("filtro") :
+                        producto.classList.add("filtro")
+                })
+            }
+        })
+    </script>
+    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
 
 </body>
 

@@ -200,7 +200,9 @@ return [
         App\Providers\ComposerServiceProvider::class,
         App\Providers\ShoppingCarServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-        Darryldecode\Cart\CartServiceProvider::class
+        Darryldecode\Cart\CartServiceProvider::class,
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+
  
 
     ],

@@ -9,6 +9,8 @@ use App\Models\User;
 use Darryldecode\Cart\Cart;
 use Darryldecode\Cart\CartCollection;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Validator;
 
 class CartController extends Controller
 {
@@ -151,10 +153,22 @@ class CartController extends Controller
 
     public function proceso(Request $request)
     {
-        $request->validate([
-            'cedula'      => ['required', 'min:6', 'max:11'],
+        $validator = Validator::make($request->all(),[
+            'cedula'      => 'required | min:6 | max:11',
         ]);
-        
+
+        // alert()
+        //     ->question('Are you sure?', 'You won\'t be able to revert this!')
+        //     ->showCancelButton()
+        //     ->showConfirmButton()
+        //     ->focusConfirm(true);
+
+        if ($validator->fails()) {
+            return back()->withInput()->withErrors($validator->errors());
+        }
+        // $task = Task::create($request->all());
+        // return redirect('tasks')->with('success', 'Task Created Successfully!');
+
         if (\Cart::getContent()->count() > 0) {
             $pedido = new Pedido();
             $pedido->subtotal = \Cart::getSubTotal();
@@ -163,7 +177,7 @@ class CartController extends Controller
             $pedido->fecha = now();
             $pedido->cedula = strtoupper($request->input('cedula'));
             $pedido->estados_id = 1;
-            $pedido->cart_id =  csrf_token();
+            $pedido->cart_id = csrf_token();
             //$pedido->user_id = Auth::user()->id;
             $pedido->save();
 
@@ -200,4 +214,15 @@ class CartController extends Controller
         }
         return redirect()->route('card.confirmar')->with(compact('cartCollection', 'pedido'));
     }
+
+    // public function withValidator($validator)
+    // {
+    //     $validator->after(function ($validator) {
+    //         if ($this->fails()) {
+
+    //             return back()->with('errors', $validator->messages()->all()[0])->withInput();
+
+    //         }
+    //     });
+    // }
 }

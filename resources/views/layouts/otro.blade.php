@@ -10,9 +10,9 @@
 
     <title>@yield('title', $config->seo_title)</title>
     <meta property="og:type" content="website" />
-    <meta property="og:url" content=@yield('url', 'https://supershopep.com') />
+    <meta property="og:url" content=@yield('url', 'https://supershopep.com' ) />
     <meta property="og:site_name" content="supershopep.com" />
-    <link rel="canonical" href=@yield('url', 'https://supershopep.com') />
+    <link rel="canonical" href=@yield('url', 'https://supershopep.com' ) />
 
     <!-- Fonts -->
 
@@ -21,9 +21,7 @@
     <script src="https://kit.fontawesome.com/29c05b9093.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Comic+Neue&family=Dancing+Script:wght@700&family=Montserrat:wght@200;500&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&family=Dancing+Script:wght@700&family=Montserrat:wght@200;500&display=swap" rel="stylesheet">
     <!-- Scripts -->
 
     @vite(['resources/css/app.scss', 'resources/js/app.js'])
@@ -40,8 +38,7 @@
             </a>
 
             <!-- boton del menu-->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -60,7 +57,7 @@
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <ul class="navbar-nav mb-2 mb-lg-0">
 -->
-                        <!--listado de categorias
+            <!--listado de categorias
                         <li class="nav-item dropdown">
                             <a id="catdes" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
@@ -78,7 +75,7 @@
                             </ul>
                         </li>-->
 
-                        <!--carrito de compra
+            <!--carrito de compra
                         <li id="catdes" class="nav-item">
                             <a class="nav-link position-relative" href="{{ route('cart.index') }}">
                                 <i class="is fa-solid fa-cart-shopping"></i>
@@ -88,7 +85,7 @@
                             </a>
                         </li>-->
 
-                        <!--acceso a cuenta
+            <!--acceso a cuenta
                         @guest @if (Route::has('login'))
                             <li class="nav-item" id="catdes">
                                 <a class="nav-link" rel="nofollow" href="{{ route('login') }}">
@@ -118,32 +115,34 @@
                             </div>
                         </li>
                     @endguest-->
-                </ul>
-            </div>
+            </ul>
         </div>
-</nav>
+        </div>
+    </nav>
 
-<!-- bola de whatsapp -->
+    <!-- bola de whatsapp -->
 
-<a href="https://wa.me/582125752732" class="btn-wsp" target="_blank">
-    <i class="fa fa-whatsapp icono"></i>
-</a>
+    <a href="https://wa.me/582125752732" class="btn-wsp" target="_blank">
+        <i class="fa fa-whatsapp icono"></i>
+    </a>
 
-<script>
-    document.addEventListener("keyup", e=>{
-        if (e.target.matches("#buscador")){
-            if (e.key === "Escape")e.target.value = ""
-            document.querySelectorAll(".articulo").forEach(producto =>{
-                producto.textContent.toLowerCase().includes(e.target.value.toLowerCase())
-                ?producto.classList.remove("filtro")
-                :producto.classList.add("filtro")
-            })
-        }
-    })
-</script>
+    <script>
+        document.addEventListener("keyup", e => {
+            if (e.target.matches("#buscador")) {
+                if (e.key === "Escape") e.target.value = ""
+                document.querySelectorAll(".articulo").forEach(producto => {
+                    producto.textContent.toLowerCase().includes(e.target.value.toLowerCase()) ?
+                        producto.classList.remove("filtro") :
+                        producto.classList.add("filtro")
+                })
+            }
+        })
+    </script>
 
+    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
+
+    @yield('content')
 </body>
 
 </html>
 
-@yield('content')

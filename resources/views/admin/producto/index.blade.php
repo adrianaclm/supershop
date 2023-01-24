@@ -24,6 +24,7 @@
                                     
                                     <a href="{{ route('producto.edit', $item->id) }}" class="btn btn-danger">EDITAR</a>
                                     {!! Form::open(['method' => 'DELETE', 'route' => ['producto.destroy', $item->id], 'style' => 'display:inline']) !!}
+                                    @csrf
                                     {!! Form::submit('ELIMINAR', [
                                         'class' => 'btn btn-danger',
                                         'onclick' => 'return confirm("ESTA SEGURO DE ELIMINAR")',

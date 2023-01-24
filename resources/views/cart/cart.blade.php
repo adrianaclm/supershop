@@ -21,14 +21,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
-    @if($errors->any())
-    @foreach($errors>all() as $error)
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        {{ $error }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @endforeach
-    @endif
+  
 
     <div class="row justify-content-center">
         <div class="col-12 col-md-7 ">
@@ -92,13 +85,13 @@
             <br><a href="{{ route('inicio') }}" class="btn btn-secondary mb-2">Continue en la tienda</a>
 
 
-            <form method="POST" action="{{ route('card.procesar') }}" class="submit-prevent-form">
+            <form method="POST" action="{{ route('card.procesar') }}" class="submit-prevent-form form-cedula">
                 @csrf
 
                 <div class="mt-5">
                     <label for="cedula" class="col-form-label"> {{ __('Cédula de Identidad: ') }} </label>
 
-                    <input id="cedula" type="text" class="form-control @error('cedula') is-invalid @enderror" name="cedula" autocomplete="name" minlength='7' maxlength='11' autocapitalize='characters' placeholder="Ingrese cédula de identidad" autofocus />
+                    <input id="cedula" type="text" class="form-control @error('cedula') is-invalid @enderror" name="cedula" autocomplete="name" minlength='7' maxlength='11' required placeholder="Ingrese cédula de identidad" autofocus />
 
                     @error('cedula')
                     <span class="invalid-feedback" role="alert">
@@ -124,4 +117,32 @@
         window.history.replaceState(null, null, window.location.href);
     }
 </script>
+@endsection
+
+@section ('content')
+
+<script>
+
+    $('.form-cedula').submit(function(e){
+        e.preventDefault();
+    });
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+            )
+        }
+    })
+</script>
+
 @endsection
