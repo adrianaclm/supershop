@@ -139,9 +139,10 @@
         })
     </script>
 
-    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
+    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@11"])
 
     @yield('content')
+    @yield('js')
 </body>
 
 </html>

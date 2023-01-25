@@ -23,18 +23,24 @@ class FacturaController extends Controller{
 
     public function create(Request $request)
     {
-        $cart_id = Pedido::get('cart_id');
+        $validator = Validator::make($request->all(),[
+            'cedula'      => 'required | min:6 | max:11',
+            'name'      => 'required| string | min:3 |  max:20',
+            'lastname'  => 'required| string | min:3 |  max:20',
+            'email'     => 'required| string | email | max:50',
+            'telefono'  => 'required| string | digits:11 ',
+            'address'   => 'required| string | max:100',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()->withErrors($validator->errors());
+        }
+
+        $cart_id = Pedido::find('cart_id')->get();
         $_SESSION = csrf_token();
 
-        $request->validate([
-             'name'      => ['required', 'string', 'min:3', 'max:20'],
-             'lastname'  => ['required', 'string', 'min:3', 'max:20'],
-             'email'     => ['required', 'string', 'email', 'max:50'],
-             'telefono'  => ['required', 'digits:11', 'regex:/^.+@.+$/i'],
-             'address'   => ['required', 'string', 'max:150'],
-         ]);
+        if (!(Pedido::where($cart_id, '=', $_SESSION))) {
 
-        if ($cart_id = $_SESSION) {
             $user = new User();
             $user->name = strtoupper($request->input('name'));
             $user->lastname = strtoupper($request->input('lastname'));
@@ -45,9 +51,8 @@ class FacturaController extends Controller{
             $user->coduser_id = csrf_token();
             $user->save();
 
-        }else{
+        }else{   
             session()->regenerate();
-            
 
         };
 

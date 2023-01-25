@@ -157,15 +157,16 @@ class CartController extends Controller
             'cedula'      => 'required | min:6 | max:11',
         ]);
 
+        if ($validator->fails()) {
+            return back()->withInput()->withErrors($validator->errors());
+        }
+        
         // alert()
         //     ->question('Are you sure?', 'You won\'t be able to revert this!')
         //     ->showCancelButton()
         //     ->showConfirmButton()
         //     ->focusConfirm(true);
-
-        if ($validator->fails()) {
-            return back()->withInput()->withErrors($validator->errors());
-        }
+        
         // $task = Task::create($request->all());
         // return redirect('tasks')->with('success', 'Task Created Successfully!');
 

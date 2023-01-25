@@ -126,6 +126,7 @@
     </a>
 
     <script>
+        //buscador 
         document.addEventListener("keyup", e => {
             if (e.target.matches("#buscador")) {
                 if (e.key === "Escape") e.target.value = ""
@@ -137,10 +138,9 @@
             }
         })
     </script>
-    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
-
+    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@11"])
+    @yield('content')
 </body>
 
 </html>
 
-@yield('content')
