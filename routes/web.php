@@ -66,7 +66,7 @@ Route::group(['prefix' => 'cliente', 'middleware' => ['auth', 'role:cliente']], 
 });
 
 
-Route::get('/tienda', [App\Http\Controllers\FrontController::class, 'index'])->name('inicio');
+Route::get('/', [App\Http\Controllers\FrontController::class, 'index'])->name('inicio');
 //Route::post('/buscador', [App\Http\Controllers\FrontController::class, 'buscador'])->name('buscador');
 /*Route::view('/contacto', 'front.contacto');
 Route::get('/empresa', [App\Http\Controllers\FrontController::class, 'empresa']);
