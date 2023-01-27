@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 
+
 class CartController extends Controller
 {
     /*public function add(Request $request){
@@ -150,7 +151,6 @@ class CartController extends Controller
         return redirect()->route('cart.index')->with('success_msg', '¡Todos los productos han sido removidos!');
     }
 
-
     public function proceso(Request $request)
     {
         $validator = Validator::make($request->all(),[
@@ -160,17 +160,18 @@ class CartController extends Controller
         if ($validator->fails()) {
             return back()->withInput()->withErrors($validator->errors());
         }
-        
-        // alert()
-        //     ->question('Are you sure?', 'You won\'t be able to revert this!')
-        //     ->showCancelButton()
-        //     ->showConfirmButton()
-        //     ->focusConfirm(true);
-        
-        // $task = Task::create($request->all());
-        // return redirect('tasks')->with('success', 'Task Created Successfully!');
 
-        if (\Cart::getContent()->count() > 0) {
+        $_SESSION =csrf_token();
+        $sesion = Pedido::select('cart_id')
+        ->where('cart_id', $_SESSION)
+        ->get();
+
+        while(count($sesion) >= 1){
+            return view('cart.failpay');
+        }
+
+        if ((\Cart::getContent()->count() > 0)){
+
             $pedido = new Pedido();
             $pedido->subtotal = \Cart::getSubTotal();
             $pedido->impuesto = \Cart::getSubTotal() * 0.16;
@@ -181,9 +182,7 @@ class CartController extends Controller
             $pedido->cart_id = csrf_token();
             //$pedido->user_id = Auth::user()->id;
             $pedido->save();
-
             //$productos = Pedido::where(Session::get('cedula'))->get();
-
             $string = "";
 
             foreach (\Cart::getContent() as $c) {
@@ -193,37 +192,22 @@ class CartController extends Controller
                 $detalle->pedido_id = $pedido->id;
                 $detalle->producto_id = $c->id;
                 $detalle->created_at = now();
-
                 $detalle->save();
-
-                $string .= "Producto: " . $c->nombre;
-                $string .= "Cantidad: " . $c->quantity;
-                $string .= "Precio: " . $c->price . " | ";
             }
-
             //\Cart::clear();
-
-            $string .= "SUBTOTAL:" . $pedido->subtotal . " | ";
-            $string .= "IMPUESTO:" . $pedido->impuesto . " | ";
-            $string .= "TOTAL:" . $pedido->total . " | ";
-            //$string .="CLIENTE:".Auth::user()->name;
-
             //return redirect()->back()->with('success_msg', '¡Su pedido está siendo procesado!');
             //echo "<script>window.location.href='https://api.whatsapp.com/send?phone=584122189082&text=Quiero%20información%20sobre%20mi%20compra'</script>";
-
             $cartCollection = \Cart::getContent();
         }
-        return redirect()->route('card.confirmar')->with(compact('cartCollection', 'pedido'));
+
+        // elseif (count($sesion) >= 1){
+
+        //     return view('cart.failpay');
+        // }
+
+          //    Alert::question('Question Title', 'Question Message');
+        return redirect()
+        ->route('card.confirmar')
+        ->with(compact('cartCollection', 'pedido'));
     }
-
-    // public function withValidator($validator)
-    // {
-    //     $validator->after(function ($validator) {
-    //         if ($this->fails()) {
-
-    //             return back()->with('errors', $validator->messages()->all()[0])->withInput();
-
-    //         }
-    //     });
-    // }
 }

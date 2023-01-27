@@ -81,7 +81,7 @@
         </main>
     </div>
 
-    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@11"])
+    @include('sweetalert::alert')
 
 </body>
 

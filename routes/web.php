@@ -43,15 +43,19 @@ Route::post('/store/cart-removeitem', [CartController::class, 'removeitem'])->na
 */
 
 //Route::get('/tienda', [App\Http\Controllers\CartController::class, 'shop'])->name('shop');
+
+
 Route::get('/tienda/cart', [App\Http\Controllers\CartController::class, 'cart'])->name('cart.index');
 Route::post('/tienda/add', [App\Http\Controllers\CartController::class, 'add'])->name('cart.store');
 Route::post('/tienda/update', [App\Http\Controllers\CartController::class, 'update'])->name('cart.update');
 Route::post('/tienda/remove', [App\Http\Controllers\CartController::class, 'remove'])->name('cart.remove');
 Route::post('/tienda/clear', [App\Http\Controllers\CartController::class, 'clear'])->name('cart.clear');
-Route::post('/tienda/procesar/', [App\Http\Controllers\CartController::class, 'proceso'])->name('card.procesar');
-
-Route::any('/tienda/procesar/confirmacion', [App\Http\Controllers\Payments\FacturaController::class, 'index'])->name('card.confirmar');
+Route::any('/tienda/procesar', [App\Http\Controllers\CartController::class, 'proceso'])->name('card.procesar');
+Route::any('/tienda/procesar/confirmado', [App\Http\Controllers\Payments\FacturaController::class, 'index'])->name('card.confirmar');
 Route::any('/tienda/procesar/facturacion/', [App\Http\Controllers\Payments\FacturaController::class, 'create'])->name('card.create');
+
+//Route::post('/tienda/verificar', [App\Http\Controllers\CartController::class, 'validator'])->name('card.verificar');
+
 
 
 
@@ -62,7 +66,7 @@ Route::group(['prefix' => 'cliente', 'middleware' => ['auth', 'role:cliente']], 
 });
 
 
-Route::get('/tienda/', [App\Http\Controllers\FrontController::class, 'index'])->name('inicio');
+Route::get('/tienda', [App\Http\Controllers\FrontController::class, 'index'])->name('inicio');
 //Route::post('/buscador', [App\Http\Controllers\FrontController::class, 'buscador'])->name('buscador');
 /*Route::view('/contacto', 'front.contacto');
 Route::get('/empresa', [App\Http\Controllers\FrontController::class, 'empresa']);

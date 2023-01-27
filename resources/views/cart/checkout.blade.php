@@ -23,8 +23,7 @@
                     <li class="breadcrumb-item active" aria-current="page"><a href="{{ url('/#') }}">Regresar</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Resumen de Orden</li>
                     <li class="breadcrumb-item active" aria-current="page">Detalle de Compra</li>
-                    <li class="breadcrumb-item active" aria-current="page">Nro. Pedido: {{ $pedido->id }} </li>
-
+                    <li class="breadcrumb-item active" aria-current="page">Nro. Pedido: {{ $pedido->id }} </li> <!--  comparar con session -->
                 </ol>
 
             </nav>
@@ -139,7 +138,7 @@
                                                 </div>
                                                 <div class="col-md-12 mb-3">
                                                     <label for="address" class="col-form-label"> {{ __('Dirección: ') }} </label>
-                                                    <textarea id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" placeholder="Ingrese dirección fiscal" autofocus></textarea>
+                                                    <input id="address" row="5" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" placeholder="Ingrese dirección fiscal" autofocus></input>
                                                 
                                                     @error('address')
                                                     <span class="invalid-feedback" role="alert">

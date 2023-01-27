@@ -1,6 +1,9 @@
 @extends('layouts.otro')
 
 @section('content')
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 <div id="resumen" class="container">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb mt-2">
@@ -85,60 +88,50 @@
             <br><a href="{{ route('inicio') }}" class="btn btn-secondary mb-2">Continue en la tienda</a>
 
 
-            <form action="{{ route('card.procesar') }}" class="submit-prevent-form" method="POST">
+            <form  class="submit-prevent-form" method="POST" action="{{ route('card.procesar') }}">
                 @csrf
-
                 <div class="mt-5">
                     <label for="cedula" class="col-form-label"> {{ __('Cédula de Identidad: ') }} </label>
-
                     <input id="cedula" type="text" class="form-control @error('cedula') is-invalid @enderror" name="cedula" autocomplete="name" minlength='7' maxlength='11' required placeholder="Ingrese cédula de identidad" autofocus />
-
                     @error('cedula')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
-
                 </div>
-
                 <br>
-                <input type="submit" value="Procesar Pedido" class="btn btn-outline-danger mb-2 submit-prevent-button">
+                <input type="submit" value="Procesar Pedido" class="btn btn-outline-danger mb-2 submit-prevent-button" >
             </form><br>
+
         </div>
         @endif
     </div>
     <br><br>
 </div>
 
-
-@endsection
-
-@section('js')
-
 <script>
     //alerta de confirmacion de pedido
 
-    $('.submit-prevent-form').submit(function(e){
-        e.preventDefault();
-
-        // Swal.fire({
-        //     title: 'Are you sure?',
-        //     text: "You won't be able to revert this!",
-        //     icon: 'warning',
-        //     showCancelButton: true,
-        //     confirmButtonColor: '#3085d6',
-        //     cancelButtonColor: '#d33',
-        //     confirmButtonText: 'Yes, delete it!'
-        // }).then((result) => {
-        //     if (result.isConfirmed) {
-        //         Swal.fire(
-        //             'Deleted!',
-        //             'Your file has been deleted.',
-        //             'success'
-        //         )
-        //     }
-        // })
-
-    });
+    // function confirmation(ev) {
+    //     ev.preventDefault();
+    //     var urlToRedirect = ev.currentTarget.getAttribute('action');
+    //     console.log(urlToRedirect);
+    //     Swal.fire({
+    //         title: '¿Está seguro de continuar?',
+    //         text: "Su orden de compra será creada",
+    //         icon: 'warning',
+    //         showCancelButton: false,
+    //         confirmButtonColor: '#3085d6',
+    //         cancelButtonColor: '#d33',
+    //         confirmButtonText: 'Confirmar pedido'
+    //     })
+    //     .then((willConfirm) => {
+    //         if (willConfirm) {
+    //             window.location.href = urlToRedirect;
+    //     }
+    // });
+    // }
 </script>
+
 @endsection
+
