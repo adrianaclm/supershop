@@ -200,12 +200,7 @@ class CartController extends Controller
             $cartCollection = \Cart::getContent();
         }
 
-        // elseif (count($sesion) >= 1){
-
-        //     return view('cart.failpay');
-        // }
-
-          //    Alert::question('Question Title', 'Question Message');
+        //    Alert::question('Question Title', 'Question Message');
         return redirect()
         ->route('card.confirmar')
         ->with(compact('cartCollection', 'pedido'));

@@ -20,7 +20,7 @@
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mt-2">
-                    <li class="breadcrumb-item active" aria-current="page"><a href="{{ url('/#') }}">Regresar</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="{{ back() }}">Regresar</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Resumen de Orden</li>
                     <li class="breadcrumb-item active" aria-current="page">Detalle de Compra</li>
                     <li class="breadcrumb-item active" aria-current="page">Nro. Pedido: {{ $pedido->id }} </li> <!--  comparar con session -->
