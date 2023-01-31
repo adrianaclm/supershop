@@ -165,12 +165,10 @@ class CartController extends Controller
         // $sesion = Pedido::select('cart_id')
         // ->where('cart_id', $_SESSION)
         // ->get();
-
         while (count((Pedido::where('cart_id', $sesion)->get())) >= 1){
+            
             session()->regenerate();
-            
-            return redirect()->route('inicio');
-            
+            return redirect('/cart');            
         }
 
         if ((\Cart::getContent()->count() > 0)){
@@ -203,9 +201,9 @@ class CartController extends Controller
             $cartCollection = \Cart::getContent();
         }
 
-        //    Alert::question('Question Title', 'Question Message');
         return redirect()
         ->route('card.confirmar')
         ->with(compact('cartCollection', 'pedido'));
+
     }
 }

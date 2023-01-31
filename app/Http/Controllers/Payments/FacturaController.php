@@ -15,6 +15,7 @@ class FacturaController extends Controller{
  
     public function index()
     {
+
         $cartCollection = \Cart::getContent();
         $sesion = csrf_token();
         $pedido = Pedido::get()->where('cart_id', $sesion)->first();
@@ -38,17 +39,6 @@ class FacturaController extends Controller{
 
         $_SESSION = csrf_token();
 
-        // if (Pedido::where('cart_id', $sesion)->exists()){
-
-        // //     $pedido = Pedido::findOrFail($_SESSION);
-        // //     $pedido->fill($request->all());
-        // //     $pedido->save();
-        // session()->regenerate();
-            
-        // return redirect()->route('inicio');
-
-        
-
             $user = new User();
             $user->name = strtoupper($request->input('name'));
             $user->lastname = strtoupper($request->input('lastname'));
@@ -59,16 +49,14 @@ class FacturaController extends Controller{
             $user->coduser_id = csrf_token();
             $user->save();
         
-
         \Cart::clear();
         session()->regenerate();
 
+        //SEND EMAIL
+            $this->sendNotification($request);
+
         return view('cart.successpay');
-//        ->with(compact('user', 'pedido', 'id', 'cartCollection'));
-
-
-        //return redirect()->route('card.confirmar')->with(compact('user', 'pedido', 'cartCollection'));
-    }
+   }
 }
 
 
