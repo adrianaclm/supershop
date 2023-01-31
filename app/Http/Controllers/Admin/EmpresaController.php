@@ -37,7 +37,9 @@ class EmpresaController extends Controller
             $imagen = $r->file('urlsomos');
             $nuevonombre = Str::slug($r->id) . '_sms.' . $imagen->guessExtension();
             Image::make($imagen->getRealPath())
-                ->resize(200, null, function ($constraint) {$constraint->aspectRatio(); })
+                ->resize(200, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })
                 ->save(public_path('img/empresa/' . $nuevonombre));
 
             $registro->urlsomos = $nuevonombre;
@@ -78,7 +80,7 @@ class EmpresaController extends Controller
 
             $registro->urlmision = $nuevonombre;
         }
-      
+
         if ($r->hasFile('urlvision')) {
 
             $rutaAnterior = public_path('img/empresa/' . $vision_anterior);
@@ -113,10 +115,9 @@ class EmpresaController extends Controller
                 ->save(public_path('img/empresa/' . $nuevonombre));
 
             $registro->urlvalores = $nuevonombre;
-        }        
+        }
 
         $registro->save();
         return redirect()->route('empresa.index');
     }
-
 }

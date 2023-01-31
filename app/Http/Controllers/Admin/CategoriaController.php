@@ -119,8 +119,8 @@ class CategoriaController extends Controller
     {
         $categoria = Categoria::findOrFail($id);
 
-        $borrar = public_path('img/categoria/'.$categoria->imagen);
-        if(file_exists($borrar)){ unlink(realpath($borrar)); }
+        // $borrar = public_path('img/categoria/'.$categoria->imagen);
+        // if(file_exists($borrar)){ unlink(realpath($borrar)); }
         $categoria->delete();
         return redirect('/admin/categoria');
  

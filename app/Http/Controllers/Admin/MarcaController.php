@@ -100,10 +100,10 @@ class MarcaController extends Controller
     public function destroy($id)
     {
         $marca = Marca::findOrFail($id);
-        $borrar = public_path('img/marca/'.$marca->urlfoto);
-        if(file_exists($borrar)){ unlink(realpath($borrar)); }
+        // $borrar = public_path('img/marca/'.$marca->urlfoto);
+        // if(file_exists($borrar)){ unlink(realpath($borrar)); }
       
-        $marca->delete();
+        // $marca->delete();
 
         return redirect('admin/marca');
     } 

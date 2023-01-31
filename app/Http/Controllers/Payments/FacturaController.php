@@ -53,7 +53,7 @@ class FacturaController extends Controller{
         session()->regenerate();
 
         //SEND EMAIL
-            $this->sendNotification($request);
+            //$this->sendNotification($request);
 
         return view('cart.successpay');
    }

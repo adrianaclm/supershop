@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Configuracion;
-
 use Session;
 use Image;
 
@@ -21,7 +20,7 @@ class ConfiguracionController extends Controller
     public function update(Request $r, $id)
     {
         $config = Configuracion::findOrFail($id);
-        $seo_imageanterior      = $config->seo_image;
+        $seo_imageanterior  = $config->seo_image;
         $favicon_anterior   = $config->favicon;
         $logo_anterior      = $config->logo;
 
@@ -37,12 +36,13 @@ class ConfiguracionController extends Controller
             $file = $r->file('seo_image');
             $nombre = time() . $file->getClientOriginalName();
             Image::make($file->getRealPath())
-            ->fit(1080,307, function ($constraint){$constraint->upsize(); })
-            ->save(public_path('img/configuracion/'. $nombre));
+                ->fit(1080, 307, function ($constraint) {
+                    $constraint->upsize();
+                })
+                ->save(public_path('img/configuracion/' . $nombre));
             $config->seo_image = $nombre;
-                      
         }
-            
+
         if ($r->hasFile('favicon')) {
 
             $rutaAnterior = public_path("img/configuracion/" . $favicon_anterior);
@@ -53,8 +53,10 @@ class ConfiguracionController extends Controller
             $file = $r->file('favicon');
             $nombre = time() . $file->getClientOriginalName();
             Image::make($file->getRealPath())
-            ->fit(200,200, function ($constraint){$constraint->upsize(); })
-            ->save(public_path('img/configuracion/'. $nombre));
+                ->fit(200, 200, function ($constraint) {
+                    $constraint->upsize();
+                })
+                ->save(public_path('img/configuracion/' . $nombre));
             $config->favicon = $nombre;
         }
 
@@ -68,8 +70,10 @@ class ConfiguracionController extends Controller
             $file = $r->file('logo');
             $nombre = time() . $file->getClientOriginalName();
             Image::make($file->getRealPath())
-            ->fit(1200,300, function ($constraint){$constraint->upsize(); })
-            ->save(public_path('img/configuracion/'. $nombre));
+                ->fit(1200, 300, function ($constraint) {
+                    $constraint->upsize();
+                })
+                ->save(public_path('img/configuracion/' . $nombre));
 
             $config->logo = $nombre;
         }

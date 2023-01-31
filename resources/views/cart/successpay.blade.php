@@ -2,5 +2,9 @@
 
 @section('content')
 
-
+<div>
 pago exitoso
+
+</div>
+
+@endsection

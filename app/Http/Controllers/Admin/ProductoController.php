@@ -156,15 +156,18 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         $producto = Producto::findOrFail($id);
-        $rutaAnterior = public_path('img/producto/' . $producto->seo_image);
-        if (file_exists($rutaAnterior)) {
-            unlink(realpath($rutaAnterior));
-        }
-        $rutaAnterior = public_path('img/producto/' . $producto->image);
-        if (file_exists($rutaAnterior)) {
-            unlink(realpath($rutaAnterior));
-        }
+        // $borrar = public_path('img/producto/'.$producto->seo_image);
+        // if(file_exists($borrar)){ unlink(realpath($borrar)); }
+
+        // $rutaAnterior = public_path('img/producto/'.$producto->image);
+        // if(file_exists($rutaAnterior)){ unlink(realpath($rutaAnterior)); }
+
         $producto->delete();
-        return redirect('admin/producto');
+        return redirect('/admin/producto');
     }
 }
+// $carrusel = Carrusel::findOrFail($id);
+// $borrar = public_path('img/carrusel/'.$carrusel->image);
+// if(file_exists($borrar)){ unlink(realpath($borrar)); }
+// $carrusel->delete();
+// return redirect('/admin/carrusel');

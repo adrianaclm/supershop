@@ -21,7 +21,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand d d-md-block d-xl-block" href="{{ route('inicio') }}">
+                <a class="navbar-brand d d-md-block d-xl-block" href="{{ url('/admin/configuracion') }}">
                     <img src={!! asset('img/configuracion/' . $config->logo) !!} alt="" width="200" height="35"
                     class="d-inline-block aling-text-top" />
                 </a>

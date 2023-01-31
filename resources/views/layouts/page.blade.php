@@ -37,8 +37,8 @@
         <div class="container-fluid">
             <!-- icono -->
             <a class="navbar-brand d d-md-block d-xl-block" href="{{ route('inicio') }}">
-                <img src={!! asset('img/configuracion/' . $config->logo) !!} alt="" width="200" height="35"
-                class="d-inline-block aling-text-top" />
+                <img class="d-inline-block aling-text-top" width="200" height="35" src={!! asset('img/configuracion/' . $config->logo) !!} 
+                />
             </a>
 
             <!-- boton del menu-->

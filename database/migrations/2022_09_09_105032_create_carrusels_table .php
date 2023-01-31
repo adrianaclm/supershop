@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('carrusels', function (Blueprint $table) {
             $table->id();          
-            $table->text('nombre');   
+            $table->text('nombre')->nullable();   
             $table->string('image', 100)->nullable();
             $table->string('link', 100)->nullable();
             $table->string('order')->default(0);

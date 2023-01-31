@@ -5,12 +5,12 @@ use Illuminate\Support\Facades\Route;
 
 
 
- 
+
 Auth::routes();
 
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function() {
-// ruta de usuario administrador
+    // ruta de usuario administrador    
    Route::resource('/configuracion', App\Http\Controllers\Admin\ConfiguracionController::class);
    Route::resource('/empresa', App\Http\Controllers\Admin\EmpresaController::class);
 
@@ -26,11 +26,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
    Route::resource('/modelo', App\Http\Controllers\Admin\ModeloController::class);
    Route::resource('/pedido', App\Http\Controllers\Admin\PedidoController::class);
    
-
-        
-   //Route::resource('/suscriptores', [App\Http\Controllers\SuscriptoresController::class]);
-
-
 });
 
 // rutas carro de compra
@@ -39,8 +34,18 @@ Route::post('/store/cart-add', [CartController::class, 'add'])->name('card.add')
 Route::get('/store/cart-checkout', [CartController::class, 'cart'])->name('card.checkout');
 Route::post('/store/cart-clear', [CartController::class, 'clear'])->name('card.clear');
 Route::post('/store/cart-removeitem', [CartController::class, 'removeitem'])->name('card.removeitem');
-
 */
+
+// Route::controller([App\Http\Controllers\CartController::class])->group(function () {
+
+//     Route::get('/tienda', 'shop')->name('shop');
+//     Route::get('/cart', 'cart')->name('cart.index');
+//     Route::post('/add', 'add')->name('cart.store');
+//     Route::post('/update', 'update')->name('cart.update');
+//     Route::post('/remove', 'remove')->name('cart.remove');
+//     Route::post('/clear', 'clear')->name('cart.clear');
+//     Route::post('/procesar', 'proceso')->name('card.procesar');
+// });
 
 Route::get('/tienda', [App\Http\Controllers\CartController::class, 'shop'])->name('shop');
 Route::get('/cart', [App\Http\Controllers\CartController::class, 'cart'])->name('cart.index');
@@ -49,7 +54,6 @@ Route::post('/update', [App\Http\Controllers\CartController::class, 'update'])->
 Route::post('/remove', [App\Http\Controllers\CartController::class, 'remove'])->name('cart.remove');
 Route::post('/clear', [App\Http\Controllers\CartController::class, 'clear'])->name('cart.clear');
 Route::post('/procesar', [App\Http\Controllers\CartController::class, 'proceso'])->name('card.procesar');
-
 // Route::group(['prefix' => 'cart'], function() {
 
 // Route::resource('/proceso', App\Http\Controllers\Admin\CartController::class);
@@ -103,4 +107,3 @@ Route::get('/paypal/status/', [App\Http\Controllers\Payments\PaymentController::
 
 // paypal JS
 Route::get('/paypal/process/{orderId}', [App\Http\Controllers\Payments\PayPalCardController::class, 'process'])->name('paypal.process');
-
