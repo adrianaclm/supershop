@@ -33,7 +33,7 @@
     <nav class="navbar navbar-expand-md navbar-light sticky-top bg-white shadow-sm">
         <div class="container-fluid">
             <!-- icono -->
-            <a class="navbar-brand d d-md-block d-xl-block" href="{{ url('/tienda') }}">
+            <a class="navbar-brand d d-md-block d-xl-block" href="{{ route('inicio') }}">
                 <img alt="supershop" width="200" height="35" class="d-inline-block aling-text-top" src={{ asset('img/configuracion/' . $config->logo) }} />
             </a>
 

@@ -161,13 +161,16 @@ class CartController extends Controller
             return back()->withInput()->withErrors($validator->errors());
         }
 
-        $_SESSION =csrf_token();
-        $sesion = Pedido::select('cart_id')
-        ->where('cart_id', $_SESSION)
-        ->get();
+        $sesion =csrf_token();
+        // $sesion = Pedido::select('cart_id')
+        // ->where('cart_id', $_SESSION)
+        // ->get();
 
-        while(count($sesion) >= 1){
-            return view('cart.failpay');
+        while (count((Pedido::where('cart_id', $sesion)->get())) >= 1){
+            session()->regenerate();
+            
+            return redirect()->route('inicio');
+            
         }
 
         if ((\Cart::getContent()->count() > 0)){

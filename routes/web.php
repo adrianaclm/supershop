@@ -42,15 +42,20 @@ Route::post('/store/cart-removeitem', [CartController::class, 'removeitem'])->na
 
 */
 
-//Route::get('/tienda', [App\Http\Controllers\CartController::class, 'shop'])->name('shop');
-
-
+Route::get('/tienda', [App\Http\Controllers\CartController::class, 'shop'])->name('shop');
 Route::get('/cart', [App\Http\Controllers\CartController::class, 'cart'])->name('cart.index');
 Route::post('/add', [App\Http\Controllers\CartController::class, 'add'])->name('cart.store');
 Route::post('/update', [App\Http\Controllers\CartController::class, 'update'])->name('cart.update');
 Route::post('/remove', [App\Http\Controllers\CartController::class, 'remove'])->name('cart.remove');
 Route::post('/clear', [App\Http\Controllers\CartController::class, 'clear'])->name('cart.clear');
 Route::any('/procesar', [App\Http\Controllers\CartController::class, 'proceso'])->name('card.procesar');
+
+// Route::group(['prefix' => 'cart'], function() {
+
+// Route::resource('/proceso', App\Http\Controllers\Admin\CartController::class);
+// });
+
+
 Route::any('/procesar/confirmado', [App\Http\Controllers\Payments\FacturaController::class, 'index'])->name('card.confirmar');
 Route::any('/procesar/facturacion/', [App\Http\Controllers\Payments\FacturaController::class, 'create'])->name('card.create');
 

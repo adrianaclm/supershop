@@ -138,7 +138,7 @@
                                                 </div>
                                                 <div class="col-md-12 mb-3">
                                                     <label for="address" class="col-form-label"> {{ __('Dirección: ') }} </label>
-                                                    <input id="address" row="5" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" placeholder="Ingrese dirección fiscal" autofocus></input>
+                                                    <input id="address" row="5" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" placeholder="Ingrese dirección fiscal" autofocus/>
                                                 
                                                     @error('address')
                                                     <span class="invalid-feedback" role="alert">

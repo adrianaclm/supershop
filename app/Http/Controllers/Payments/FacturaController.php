@@ -22,7 +22,7 @@ class FacturaController extends Controller{
         return view('cart.checkout')->with(compact('cartCollection', 'pedido'));
     }
 
-    public function create(Request $request, $id)
+    public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name'      => 'required| string| min:3| max:20',
@@ -36,29 +36,29 @@ class FacturaController extends Controller{
             return redirect()->back()->withInput()->withErrors($validator->errors());
         };
 
-        $sesion = csrf_token();
+        $_SESSION = csrf_token();
 
-        if (Pedido::where('cart_id', $sesion)->exists()){
+        // if (Pedido::where('cart_id', $sesion)->exists()){
 
-        //     $pedido = Pedido::findOrFail($_SESSION);
-        //     $pedido->fill($request->all());
-        //     $pedido->save();
-        session()->regenerate();
+        // //     $pedido = Pedido::findOrFail($_SESSION);
+        // //     $pedido->fill($request->all());
+        // //     $pedido->save();
+        // session()->regenerate();
             
-        return redirect()->route('inicio');
+        // return redirect()->route('inicio');
 
-        }else{   
+        
 
             $user = new User();
             $user->name = strtoupper($request->input('name'));
             $user->lastname = strtoupper($request->input('lastname'));
             $user->cedula = Pedido::where('cart_id', '=', $_SESSION)->pluck('cedula')->first();  
             $user->email = strtoupper($request->input('email'));
-            $user->address = strtoupper($request->textarea('address'));
+            $user->address = strtoupper($request->input('address'));
             $user->telefono = strtoupper($request->input('telefono'));
             $user->coduser_id = csrf_token();
             $user->save();
-        };
+        
 
         \Cart::clear();
         session()->regenerate();
