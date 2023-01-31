@@ -71,10 +71,10 @@ Route::get('/', [App\Http\Controllers\FrontController::class, 'index'])->name('i
 /*Route::view('/contacto', 'front.contacto');
 Route::get('/empresa', [App\Http\Controllers\FrontController::class, 'empresa']);
 */
-Route::get('/tienda/{categoria:slug}', [App\Http\Controllers\FrontController::class, 'categoria'])->name('categoria');
+Route::get('/{categoria:slug}', [App\Http\Controllers\FrontController::class, 'categoria'])->name('categoria');
 
 //Route::get('tienda/productos/', [App\Http\Controllers\FrontController::class, 'productos'])->name('productos');
-Route::get('/tienda/descripcion/{producto:id}', [App\Http\Controllers\FrontController::class, 'producto'])->name('producto');
+Route::get('/descripcion/{producto:id}', [App\Http\Controllers\FrontController::class, 'producto'])->name('producto');
 
 
 
