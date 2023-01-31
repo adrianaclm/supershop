@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Payments;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrdenCreada;
 use App\Models\Pedido;
 use App\Models\Producto;
 use Illuminate\Http\Request;
@@ -10,6 +11,9 @@ use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Darryldecode\Cart\Cart;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Mail;
+
 
 class FacturaController extends Controller{
  
@@ -52,37 +56,14 @@ class FacturaController extends Controller{
         \Cart::clear();
         session()->regenerate();
 
+        Mail::to($user->email)->send(new OrdenCreada());
+
+
         //SEND EMAIL
             //$this->sendNotification($request);
 
-        return view('cart.successpay');
+        Alert::success('Pedido Procesado', 'Información enviada a su correo');
+
+        return redirect()->route('inicio');
    }
 }
-
-
-
-        //$validator = Validator::make($data, [
-        // 'name'      => 'required| string| min:3| max:20',
-        // 'lastname'  => 'required| string| min:3| max:20',
-        // 'email'     => 'required| string| email| max:50',
-        // 'telefono'  => 'required| regex:/^(0-9\s\-\+\(\)]*)$/| min:11| max:11',
-        // 'address'   => 'required| string| max:150',
-        //]);
-
-        //if ($validator->fails()) {
-        //    return back()->withErrors($validator);
-        //} else {
-
-        // SEND EMAIL
-        //    $this->sendNotification($data);
-
-        //    return redirect()
-        //        ->back()
-        //        ->with('success' | trans('web.contact_form_send'));
-        //}
-
-        // $cartCollection = \Cart::getContent();
-
-        // return view('card.verificar')->with(compact('user', 'cartCollection'));
-    
-
