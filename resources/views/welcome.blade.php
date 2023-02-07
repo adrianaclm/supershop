@@ -127,6 +127,8 @@
 
     <!--   pie de pagina medios y contacto-->
     <div class="row border border-danger border-5 rounded m-0">
+        <br>
+        <div class="row"></div>
         <div class="col-6 col-md-4 col-lg-2 mb-0 mt-1 text-center">
             <h6 class="text-centert"><b>MEDIOS DE PAGO</b></h6>
             <img src="img/footer/maestro.jpg" class="image m-1" width="65" height="auto"></a>
@@ -166,6 +168,10 @@
             La Candelaria, Caracas.<br>
 
         </div>
+        <br>
+        <div class="row"></div>
+        <br>
+        <br>
     </div>
 
     <!-- Barra de derechos de autor -->

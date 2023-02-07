@@ -8,10 +8,27 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Darryldecode\Cart\Cart;
+use App\Models\Pedido;
+use Darryldecode\Cart\CartCollection;
 
 class OrdenCreada extends Mailable
 {
     use Queueable, SerializesModels;
+    
+    /**
+     * The pedido instance.
+     *
+     * @var \App\Models\Pedido
+     */
+
+    public $pedido;
+
+    /**
+     * Create a new message instance.
+     *
+     * @return void
+     */
 
     /**
      * Create a new message instance.
@@ -20,7 +37,7 @@ class OrdenCreada extends Mailable
      */
     public function __construct()
     {
-        //
+        $this->pedido ;
     }
 
     /**
@@ -30,9 +47,13 @@ class OrdenCreada extends Mailable
      */
     public function envelope()
     {
+        //$_SESSION =  csrf_token();
+        //$pedido = Pedido::where('cart_id', '=', $_SESSION)->first();
+
         return new Envelope(
             //from: new Address('',''),
-            subject: 'Orden Creada' ,
+           
+            subject: 'Orden Creada'
         );
     }
 
@@ -43,8 +64,13 @@ class OrdenCreada extends Mailable
      */
     public function content()
     {
+        // $cartCollection = \Cart::getContent();
         return new Content(
             view: 'email.ordenCreada',
+            // with: [
+            //     'orderName' => $this->pedido->cedula,
+            //     'orderPrice' => $this->pedido->total,
+            // ],
         );
     }
 

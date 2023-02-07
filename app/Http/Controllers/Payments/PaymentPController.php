@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Payments;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Solution;
 use App\Models\User;
 
-class PaymentPController extends Controller
-{
+class PaymentPController extends Controller{
     public function create(Solution $solution){
 
         // if its already paid, go to the results page

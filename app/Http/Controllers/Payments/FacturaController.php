@@ -52,16 +52,12 @@ class FacturaController extends Controller{
             $user->telefono = strtoupper($request->input('telefono'));
             $user->coduser_id = csrf_token();
             $user->save();
-        
-        \Cart::clear();
-        session()->regenerate();
 
         Mail::to($user->email)->send(new OrdenCreada());
 
-
-        //SEND EMAIL
-            //$this->sendNotification($request);
-
+        \Cart::clear();
+        session()->regenerate();
+        
         Alert::success('Pedido Procesado', 'Información enviada a su correo');
 
         return redirect()->route('inicio');
