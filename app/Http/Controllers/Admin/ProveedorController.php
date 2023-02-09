@@ -15,7 +15,9 @@ class ProveedorController extends Controller
     public function index()
     {
         $proveedors = Proveedor::all();
-        return view("admin.proveedor.index", compact('proveedors'));
+        $proveedor = Proveedor::paginate(10);
+
+        return view("admin.proveedor.index", compact('proveedors, proveedor'));
     }
 
     public function create()

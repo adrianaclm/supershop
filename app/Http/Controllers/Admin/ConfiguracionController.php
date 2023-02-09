@@ -28,7 +28,7 @@ class ConfiguracionController extends Controller
 
         if ($r->hasFile('seo_image')) {
 
-            $rutaAnterior = public_path("img/configuracion/" . $seo_imageanterior);
+            $rutaAnterior = public_path("/img/configuracion/" . $seo_imageanterior);
             if ((file_exists($rutaAnterior)) && ($seo_imageanterior != null)) {
                 unlink(realpath($rutaAnterior));
             }
@@ -39,13 +39,13 @@ class ConfiguracionController extends Controller
                 ->fit(1080, 307, function ($constraint) {
                     $constraint->upsize();
                 })
-                ->save(public_path('img/configuracion/' . $nombre));
+                ->save(public_path('/img/configuracion/' . $nombre));
             $config->seo_image = $nombre;
         }
 
         if ($r->hasFile('favicon')) {
 
-            $rutaAnterior = public_path("img/configuracion/" . $favicon_anterior);
+            $rutaAnterior = public_path("/img/configuracion/" . $favicon_anterior);
             if ((file_exists($rutaAnterior)) && ($favicon_anterior != null)) {
                 unlink(realpath($rutaAnterior));
             }
@@ -56,13 +56,13 @@ class ConfiguracionController extends Controller
                 ->fit(200, 200, function ($constraint) {
                     $constraint->upsize();
                 })
-                ->save(public_path('img/configuracion/' . $nombre));
+                ->save(public_path('/img/configuracion/' . $nombre));
             $config->favicon = $nombre;
         }
 
         if ($r->hasFile('logo')) {
 
-            $rutaAnterior = public_path("img/configuracion/" . $logo_anterior);
+            $rutaAnterior = public_path("/img/configuracion/" . $logo_anterior);
             if ((file_exists($rutaAnterior)) && ($logo_anterior != null)) {
                 unlink(realpath($rutaAnterior));
             }
@@ -73,7 +73,7 @@ class ConfiguracionController extends Controller
                 ->fit(1200, 300, function ($constraint) {
                     $constraint->upsize();
                 })
-                ->save(public_path('img/configuracion/' . $nombre));
+                ->save(public_path('/img/configuracion/' . $nombre));
 
             $config->logo = $nombre;
         }

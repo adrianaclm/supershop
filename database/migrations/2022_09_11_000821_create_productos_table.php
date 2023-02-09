@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('slug', 25)->nullable();
             $table->string('seo_title', 67)->nullable();
             $table->string('seo_description', 155)->nullable();
-            $table->string('seo_image', 100)->nullable();
+            $table->string('seo_image', 100)->default('1.jpg');
 
             $table->string('nombre', 25)->nullable();
             $table->text('descripcion')->nullable();

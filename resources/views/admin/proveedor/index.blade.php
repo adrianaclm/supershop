@@ -36,7 +36,7 @@
                     </tbody>
 
                 </table>
-
+                {!! $proveedor->withQueryString()->links('pagination::bootstrap-5') !!}
                 
             </div>
         </div>

@@ -1,7 +1,8 @@
-<div class="col-sm-2">
+<br><br>
+<div class="col-sm-2" >
     <ul class="mead list-group">
         <li class="list-group-item">
-            <a href={{ url('admin/empresa') }}>Empresa</a>
+            <a href="{{ url('admin/empresa') }}">Empresa</a>
         </li>
 
         <li class="list-group-item">

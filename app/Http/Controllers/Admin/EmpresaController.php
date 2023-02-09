@@ -19,18 +19,18 @@ class EmpresaController extends Controller
     public function update(Request $r, $id)
     {
         $registro = Empresa::findOrFail($id);
-        $registro->fill($r->all());
-
         $somos_anterior      = $registro->urlsomos;
         $historia_anterior   = $registro->urlhistoria;
-        $mision_anterior   = $registro->urlmision;
-        $vision_anterior      = $registro->urlvision;
-        $valores_anterior      = $registro->urlvalores;
+        $mision_anterior     = $registro->urlmision;
+        $vision_anterior     = $registro->urlvision;
+        $valores_anterior    = $registro->urlvalores;
+
+        $registro->fill($r->all());
 
         if ($r->hasFile('urlsomos')) {
 
-            $rutaAnterior = public_path('img/empresa/' . $somos_anterior);
-            if (file_exists($rutaAnterior)) {
+            $rutaAnterior = public_path("/img/empresa/" . $somos_anterior);
+            if ((file_exists($rutaAnterior)) || ($somos_anterior != null)) {
                 unlink(realpath($rutaAnterior));
             }
 
@@ -118,6 +118,7 @@ class EmpresaController extends Controller
         }
 
         $registro->save();
+        
         return redirect()->route('empresa.index');
     }
 }

@@ -49,9 +49,9 @@ class ProductoController extends Controller
         if ($request->hasFile('seo_image')) {
 
             $file = $request->file('seo_image');
-            $nombre = time() . '.' . $file->guessExtension();
+            $nombre = time() . 's.' . $file->guessExtension();
             Image::make($file->getRealPath())
-                ->fit(600, 400, function ($constraint) {
+                ->resize(600, 400, function ($constraint) {
                     $constraint->upsize();
                 })
                 ->save(public_path('img/producto/' . $nombre));
@@ -64,7 +64,7 @@ class ProductoController extends Controller
             $file = $request->file('image');
             $nombre = time() . '.' . $file->guessExtension();
             Image::make($file->getRealPath())
-                ->fit(600, 400, function ($constraint) {
+                ->resize(600, 400, function ($constraint) {
                     $constraint->upsize();
                 })
                 ->save(public_path('img/producto/' . $nombre));
@@ -73,8 +73,6 @@ class ProductoController extends Controller
 
         $producto->publicado = $request->publicado ? 1 : 0;
    
-
-
         $producto->save();
         return redirect('/admin/producto');
     }
@@ -104,28 +102,28 @@ class ProductoController extends Controller
 
         $producto = Producto::findOrFail($id);
         $seo_imageanterior = $producto->seo_image;
-        $imageanterior = $producto->image;
+        $imageanterior     = $producto->image;
 
         $producto->fill($r->all());
 
         if ($r->hasFile('seo_image')) {
-            $rutaAnterior = public_path('img/producto/' . $seo_imageanterior);
-            if (file_exists($rutaAnterior)) {
-                unlink(realpath($rutaAnterior));
+            $rutaAnteriorS = public_path('img/producto/'.$seo_imageanterior);
+            if (file_exists($rutaAnteriorS)) {
+                unlink(realpath($rutaAnteriorS));
             }
 
             $file = $r->file('seo_image');
-            $nombre = time() . 'seo.' . $file->guessExtension();
+            $nombreseo = time() . 's.' . $file->guessExtension();
             Image::make($file->getRealPath())
-                ->fit(400, 400, function ($constraint) {
+                ->resize(400, 400, function ($constraint) {
                     $constraint->upsize();
                 })
-                ->save(public_path('img/producto/' . $nombre));
-            $producto->seo_image = $nombre;
+                ->save(public_path('img/producto/' . $nombreseo));
+            $producto->seo_image = $nombreseo;
         }
 
         if ($r->hasFile('image')) {
-            $rutaAnterior = public_path('img/producto/' . $imageanterior);
+            $rutaAnterior = public_path('img/producto/'.$imageanterior);
             if (file_exists($rutaAnterior)) {
                 unlink(realpath($rutaAnterior));
             }
@@ -133,7 +131,7 @@ class ProductoController extends Controller
             $file = $r->file('image');
             $nombre = time() . '.' . $file->guessExtension();
             Image::make($file->getRealPath())
-                ->fit(600, 400, function ($constraint) {
+                ->resize(600, 400, function ($constraint) {
                     $constraint->upsize();
                 })
                 ->save(public_path('img/producto/' . $nombre));

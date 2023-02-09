@@ -38,7 +38,7 @@
                                     <img src={!! asset('img/producto/' . $r->image) !!} class="card-img-top mx-auto my-2 rounded rounded-2"
                                         style="height: 150px; width: 150px;display: block;" alt="{{ $r->image }}">
                                     <div class="card-body">
-                                        <a href="{{ url('/tienda/descripcion/' . $r->id) }}">
+                                        <a href="{{ url('/descripcion/' . $r->id) }}">
                                             <h6 class="card-title text-center">{{ $r->nombre }}</h6>
                                         </a>
                                         <p class="m-0">Detal: {{ $r->pvp_detal }} $</p>

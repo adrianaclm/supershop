@@ -32,7 +32,7 @@ class CategoriaController extends Controller
             $file = $request->file('seo_image');
             $nombre = $file->getClientOriginalName();
             Image::make($file->getRealPath())
-            ->fit(200,200,function($constraint){ $constraint->upsize();  })
+            ->resize(200,200,function($constraint){ $constraint->upsize();  })
             ->save( public_path('img/categoria/'.$nombre));
 
             $categoria->seo_image = $nombre;

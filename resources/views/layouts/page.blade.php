@@ -27,7 +27,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&family=Dancing+Script:wght@700&family=Montserrat:wght@200;500&display=swap" rel="stylesheet">
     <!-- Scripts -->
-    @vite(['resources/css/app.scss', 'resources/js/app.js'])
+    @vite('resources/js/app.js')
 </head>
 
 <body>
