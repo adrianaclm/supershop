@@ -16,17 +16,11 @@ use App\Http\Controllers\Controller;
 class ProductoController extends Controller
 {
     //listado
-    public function index()
+    public function index(Request $request)
     {
-        // $productos = Producto::whereCategoria_id(Session::get('categoria_id'))->get();
-        // $productos = Producto::whereMarca_id(Session::get('marca_id'))->get();
-        // $productos = Producto::whereModelo_id(Session::get('modelo_id'))->get();
-
-        $productos = Producto::all();
-        $producto = Producto::paginate(10);
-
-
-        return view("admin.producto.index", compact('productos', 'producto'));
+        $data['q'] = $request->get('q');
+        $data['productos'] = Producto::where('nombre', 'like', '%' . $data['q'] . '%')->paginate(10)->withQueryString();
+        return view("admin.producto.index", $data);
     }
 
     //insertar

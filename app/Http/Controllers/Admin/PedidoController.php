@@ -6,30 +6,26 @@ use App\Models\Pedido;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Detalle;
-use App\Models\Producto;
 use App\Models\User;
 use App\Models\Estado;
 use Illuminate\Support\Facades\Session;
 
 class PedidoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-       
-        $pedidos = Pedido::paginate(10);
         $estado = Pedido::select('pedidos.id', 'pedidos.fecha', 'pedidos.estados_id','estados.nombre', 'users.id as uid')
         ->join('estados', 'pedidos.estados_id', '=', 'estados.id')
         ->join('users', 'pedidos.cart_id', '=', 'users.coduser_id' )
         ->get();
 
-       
-        return view('admin.pedido.index', compact('pedidos', 'estado'));
+        $data['q'] = $request->get('q');
+        $data['pedidos'] = Pedido::where('id', 'like', '%' . $data['q'] . '%')->paginate(10)->withQueryString();
+        return view("admin.pedido.index", compact('estado'), $data);
     }
-
   
     public function store(Request $request)
     {
-
         $pedido = new Pedido($request->all());
         $pedido->save();
         return redirect('/admin/pedido');

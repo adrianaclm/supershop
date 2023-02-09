@@ -29,9 +29,8 @@ class ConfiguracionController extends Controller
         if ($r->hasFile('seo_image')) {
 
             $rutaAnterior = public_path("/img/configuracion/" . $seo_imageanterior);
-            if ((file_exists($rutaAnterior)) && ($seo_imageanterior != null)) {
-                unlink(realpath($rutaAnterior));
-            }
+            if ((file_exists($rutaAnterior)) || ($seo_imageanterior = null)) {
+                unlink(realpath($rutaAnterior)); }
 
             $file = $r->file('seo_image');
             $nombre = time() . $file->getClientOriginalName();
@@ -46,7 +45,7 @@ class ConfiguracionController extends Controller
         if ($r->hasFile('favicon')) {
 
             $rutaAnterior = public_path("/img/configuracion/" . $favicon_anterior);
-            if ((file_exists($rutaAnterior)) && ($favicon_anterior != null)) {
+            if ((file_exists($rutaAnterior)) || ($favicon_anterior = null)) {
                 unlink(realpath($rutaAnterior));
             }
 
@@ -63,7 +62,7 @@ class ConfiguracionController extends Controller
         if ($r->hasFile('logo')) {
 
             $rutaAnterior = public_path("/img/configuracion/" . $logo_anterior);
-            if ((file_exists($rutaAnterior)) && ($logo_anterior != null)) {
+            if ((file_exists($rutaAnterior)) || ($logo_anterior = null)) {
                 unlink(realpath($rutaAnterior));
             }
 

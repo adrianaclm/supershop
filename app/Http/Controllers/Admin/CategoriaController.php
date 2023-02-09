@@ -9,21 +9,22 @@ use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
 
 
-
-
 class CategoriaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $categorias = Categoria::all();
-        return view("admin.categoria.index", compact('categorias'));
+        $data['q'] = $request->get('q');
+        $data['categorias'] = Categoria::where('nombre', 'like', '%'. $data['q'] . '%')->paginate(10)->withQueryString();
+        return view('admin.categoria.index', $data);
     }
 
-    public function create(){
+    public function create()
+    {
         return view('admin.categoria.create');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
         $categoria = new Categoria($request->all());
 
@@ -32,21 +33,24 @@ class CategoriaController extends Controller
             $file = $request->file('seo_image');
             $nombre = $file->getClientOriginalName();
             Image::make($file->getRealPath())
-            ->resize(200,200,function($constraint){ $constraint->upsize();  })
-            ->save( public_path('img/categoria/'.$nombre));
+                ->resize(200, 200, function ($constraint) {
+                    $constraint->upsize();
+                })
+                ->save(public_path('img/categoria/' . $nombre));
 
             $categoria->seo_image = $nombre;
-  
-          }
+        }
 
         if ($request->hasFile('imagen')) {
 
             $file = $request->file('imagen');
             $nombre = $file->getClientOriginalName();
             Image::make($file->getRealPath())
-            ->resize(600,400,function($constraint){ $constraint->upsize();  })
-            ->save( public_path('img/categoria/'.$nombre));
-        
+                ->resize(600, 400, function ($constraint) {
+                    $constraint->upsize();
+                })
+                ->save(public_path('img/categoria/' . $nombre));
+
             $categoria->imagen = $nombre;
         }
 
@@ -67,38 +71,46 @@ class CategoriaController extends Controller
         $seoimagen_anterior = $request->seo_image;
 
 
-        if($request->hasFile('imagen')){
+        if ($request->hasFile('imagen')) {
 
-            $rutaAnterior = public_path('img/categoria/'.$foto_anterior);
-            if(file_exists($rutaAnterior)){ unlink(realpath($rutaAnterior)); }
+            $rutaAnterior = public_path("img/categoria/" . $foto_anterior);
+            if ((file_exists($rutaAnterior))  || ($foto_anterior = null)) {
+                unlink(realpath($rutaAnterior));
+            }
 
             $imagen = $request->file('imagen');
-            
-            $nuevonombre = 'crs'.time().'.'.$imagen->guessExtension();
+
+            $nuevonombre = 'crs' . time() . '.' . $imagen->getClientOriginalName();
             Image::make($imagen->getRealPath())
-            ->resize(600,400,function($constraint){ $constraint->upsize();  })
-            ->save( public_path('img/categoria/'.$nuevonombre));
+                ->resize(600, 400, function ($constraint) {
+                    $constraint->upsize();
+                })
+                ->save(public_path('img/categoria/' . $nuevonombre));
 
             $categoria->imagen = $nuevonombre;
         }
-       
 
-        if($request->hasFile('seo_image')){
 
-            $rutaAnterior = public_path('img/categoria/'.$seoimagen_anterior);
-            if(file_exists($rutaAnterior)){ unlink(realpath($rutaAnterior)); }
+        if ($request->hasFile('seo_image')) {
+
+            $rutaAnterior = public_path("img/categoria/" . $seoimagen_anterior);
+            if ((file_exists($rutaAnterior))  || ($foto_anterior = null)) {
+                unlink(realpath($rutaAnterior));
+            }
 
             $seo_image = $request->file('seo_image');
-            
-            $nuevonombre = 'crs'.time().'.'.$seo_image->guessExtension();
+
+            $nuevonombre = 'crs' . time() . '.' . $seo_image->getClientOriginalName();
             Image::make($seo_image->getRealPath())
-            ->resize(200,200,function($constraint){ $constraint->upsize();  })
-            ->save( public_path('img/categoria/'.$nuevonombre));
+                ->resize(200, 200, function ($constraint) {
+                    $constraint->upsize();
+                })
+                ->save(public_path('img/categoria/' . $nuevonombre));
 
             $categoria->seo_image = $nuevonombre;
         }
-    
-       
+
+
         $categoria->save();
         return redirect('/admin/categoria');
     }
@@ -123,7 +135,5 @@ class CategoriaController extends Controller
         // if(file_exists($borrar)){ unlink(realpath($borrar)); }
         $categoria->delete();
         return redirect('/admin/categoria');
- 
     }
 }
-?>

@@ -12,12 +12,11 @@ use Illuminate\Support\Facades\Session;
 
 class ProveedorController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $proveedors = Proveedor::all();
-        $proveedor = Proveedor::paginate(10);
-
-        return view("admin.proveedor.index", compact('proveedors, proveedor'));
+        $data['q'] = $request->get('q');
+        $data['proveedors'] = Proveedor::where('razon_social', 'like', '%' . $data['q'] . '%')->paginate(10)->withQueryString();
+        return view("admin.proveedor.index", $data);
     }
 
     public function create()

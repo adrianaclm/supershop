@@ -13,14 +13,13 @@ use Illuminate\Support\Facades\Session;
 
 class ModeloController extends Controller
 {
-    
-    public function index()
+    public function index(Request $request)
     {
-        //if(!empty(Session::get('marca_id'))){
-        //    $modelos = Modelo::whereMarca_id(Session::get('marca_id'))->get();
-        $modelos = Modelo::all();    
-        return view("admin.modelo.index", compact('modelos'));
+        $data['q'] = $request->get('q');
+        $data['modelos'] = Modelo::where('codigo', 'like', '%' . $data['q'] . '%')->paginate(10)->withQueryString();
+        return view("admin.modelo.index", $data);
     }
+
 
     public function create()
     {
@@ -31,7 +30,7 @@ class ModeloController extends Controller
     public function store(Request $request)
     {
 
-        $modelo = new Modelo($request->all());  
+        $modelo = new Modelo($request->all());
         $modelo->save();
         return redirect('/admin/modelo');
     }
@@ -41,7 +40,7 @@ class ModeloController extends Controller
 
         $modelo = Modelo::findOrFail($id);
         $modelo->fill($request->all());
-       
+
         $modelo->save();
         return redirect('/admin/modelo');
     }
@@ -62,9 +61,9 @@ class ModeloController extends Controller
     public function destroy($id)
     {
         $modelo = Modelo::findOrFail($id);
-      
+
         $modelo->delete();
 
         return redirect('/admin/modelo');
-    } 
+    }
 }
