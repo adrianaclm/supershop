@@ -3,14 +3,13 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Darryldecode\Cart\Cart;
 use App\Models\Pedido;
-use Darryldecode\Cart\CartCollection;
+use App\Models\Produto;
+use App\Models\Detalle;
 
 class OrdenCreada extends Mailable
 {
@@ -23,21 +22,21 @@ class OrdenCreada extends Mailable
      */
 
     public $pedido;
+    public $producto;
+    public $detalle;
 
     /**
      * Create a new message instance.
      *
+     * @param  \App\Models\Pedido  $pedido
      * @return void
      */
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function __construct(Pedido $pedido)
     {
-        $this->pedido ;
+        $this->pedido = $pedido ;
+        $this->detalle;
+        $this->producto;
     }
 
     /**
@@ -47,13 +46,10 @@ class OrdenCreada extends Mailable
      */
     public function envelope()
     {
-        //$_SESSION =  csrf_token();
-        //$pedido = Pedido::where('cart_id', '=', $_SESSION)->first();
-
         return new Envelope(
             //from: new Address('',''),
            
-            subject: 'Orden Creada'
+            subject: 'Orden Creada Exitosamente'
         );
     }
 
@@ -67,10 +63,10 @@ class OrdenCreada extends Mailable
         // $cartCollection = \Cart::getContent();
         return new Content(
             view: 'email.ordenCreada',
-            // with: [
-            //     'orderName' => $this->pedido->cedula,
-            //     'orderPrice' => $this->pedido->total,
-            // ],
+            with: [
+                'orderName' => $this->pedido->cedula,
+                'orderPrice' => $this->pedido->total,
+            ],
         );
     }
 

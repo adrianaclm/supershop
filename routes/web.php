@@ -77,3 +77,10 @@ Route::get('/tienda/cart/payment-success', [App\Http\Controllers\Payments\Paymen
 
 // // paypal JS
 // Route::get('/paypal/process/{orderId}', [App\Http\Controllers\Payments\PayPalCardController::class, 'process'])->name('paypal.process');
+
+Route::get('/notification', function () {
+    $invoice = Invoice::find(1);
+ 
+    return (new InvoicePaid($invoice))
+                ->toMail($invoice->user);
+});

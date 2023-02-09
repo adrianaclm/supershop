@@ -15,8 +15,9 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Mail;
 
 
-class FacturaController extends Controller{
- 
+class FacturaController extends Controller
+{
+
     public function index()
     {
 
@@ -29,6 +30,10 @@ class FacturaController extends Controller{
 
     public function create(Request $request)
     {
+        $_SESSION = csrf_token();
+
+        $pedido = Pedido::get()->where('cart_id', $_SESSION)->first();
+
         $validator = Validator::make($request->all(), [
             'name'      => 'required| string| min:3| max:20',
             'lastname'  => 'required| string| min:3| max:20',
@@ -41,25 +46,23 @@ class FacturaController extends Controller{
             return redirect()->back()->withInput()->withErrors($validator->errors());
         };
 
-        $_SESSION = csrf_token();
+        $user = new User();
+        $user->name = strtoupper($request->input('name'));
+        $user->lastname = strtoupper($request->input('lastname'));
+        $user->cedula = Pedido::where('cart_id', '=', $_SESSION)->pluck('cedula')->first();
+        $user->email = strtoupper($request->input('email'));
+        $user->address = strtoupper($request->input('address'));
+        $user->telefono = strtoupper($request->input('telefono'));
+        $user->coduser_id = csrf_token();
 
-            $user = new User();
-            $user->name = strtoupper($request->input('name'));
-            $user->lastname = strtoupper($request->input('lastname'));
-            $user->cedula = Pedido::where('cart_id', '=', $_SESSION)->pluck('cedula')->first();  
-            $user->email = strtoupper($request->input('email'));
-            $user->address = strtoupper($request->input('address'));
-            $user->telefono = strtoupper($request->input('telefono'));
-            $user->coduser_id = csrf_token();
-            $user->save();
+        Mail::to($user->email)->send(new OrdenCreada($pedido));
 
-        Mail::to($user->email)->send(new OrdenCreada());
-
+        $user->save();
         \Cart::clear();
         session()->regenerate();
-        
+
         Alert::success('Pedido Procesado', 'Información enviada a su correo');
 
         return redirect()->route('inicio');
-   }
+    }
 }

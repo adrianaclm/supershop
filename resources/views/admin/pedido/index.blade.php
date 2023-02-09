@@ -11,7 +11,7 @@
                 <div class="container-fluid">
                     <a></a>
                     <form class="d-flex" role="search">
-                        <input class="form-control" name="q" type="text" placeholder="Buscar .." value="{{ $q }}" />
+                        <input class="form-control" name="q" type="string" placeholder="Buscar .." value="{{ $q }}" />
                         <button class="btn btn-outline-secondary" type="submit">Search</button>
                     </form>
                 </div>
