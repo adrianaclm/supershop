@@ -48,7 +48,7 @@
                             </div>
                             <div class="col-6 col-lg-3">
                                 <p>
-                                    <b><a href="{{ url('/tienda/descripcion/'.$item->id) }}">{{ $item->name }}</a></b><br>
+                                    <b><a href="{{ route('producto', [$item->id]) }}">{{ $item->name }}</a></b><br>
                                     <b>Cantidad: </b> {{ $item->quantity }}<br>
                                     <b>Precio unit.: </b>$ {{ $item->price }}<br>
                                     <b>IVA 16%: </b> $ {{ ($item->price * $item->quantity) * 0.16 }} <br>
@@ -88,7 +88,8 @@
                                         </h4>
                                         <hr>
 
-                                        <form method="post" action="{{ route('card.create') }}">
+                                        <form action="{{ route('card.create') }}" method="POST">
+
                                             @csrf
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">

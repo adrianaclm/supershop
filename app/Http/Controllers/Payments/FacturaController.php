@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Payments;
 use App\Http\Controllers\Controller;
 use App\Mail\OrdenCreada;
 use App\Models\Pedido;
-use App\Models\Producto;
+use App\Models\Detalle;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
@@ -20,19 +20,19 @@ class FacturaController extends Controller
 
     public function index()
     {
-
         $cartCollection = \Cart::getContent();
         $sesion = csrf_token();
         $pedido = Pedido::get()->where('cart_id', $sesion)->first();
 
         return view('cart.checkout')->with(compact('cartCollection', 'pedido'));
     }
-
-    public function create(Request $request)
+    
+    public function store(Request $request)
     {
         $_SESSION = csrf_token();
 
-        $pedido = Pedido::get()->where('cart_id', $_SESSION)->first();
+        $pedido = Pedido::findOrFail('id')->where('cart_id', $_SESSION)->first();
+        $user = User::get()->where('coduser_id', $_SESSION)->first();
 
         $validator = Validator::make($request->all(), [
             'name'      => 'required| string| min:3| max:20',
@@ -55,7 +55,7 @@ class FacturaController extends Controller
         $user->telefono = strtoupper($request->input('telefono'));
         $user->coduser_id = csrf_token();
 
-        Mail::to($user->email)->send(new OrdenCreada($pedido));
+        Mail::to($user->email)->send(new OrdenCreada($pedido, $user));
 
         $user->save();
         \Cart::clear();
@@ -65,4 +65,5 @@ class FacturaController extends Controller
 
         return redirect()->route('inicio');
     }
+
 }

@@ -7,10 +7,10 @@
 <body>
     <a class="navbar-brand d d-md-block d-xl-block">
         <img width="200" height="35" class="d-inline-block aling-text-top" 
-        src={{ asset('img/configuracion/' . $config->logo) }} />
+        src={{ asset('/img/configuracion/' . $logo) }} />
     </a><br>
 
-    <h1>@nombre , gracias por tu nueva compra. Tu pedido está confirmado. </h1><br>
+    <h1>{{ $userName }} , gracias por tu nueva compra. Tu pedido está confirmado. </h1><br>
 
     <h3>Nuestros vendedores se estarán comunicando contigo para coordinar la forma de pago.</h3>
 
@@ -21,6 +21,7 @@
         </div>
         <div class="col-6 col-lg-3">
             <p>
+                <b>Nombre: </b> {{ $productoName }}  <br>
                 <b>Cantidad: </b> <br>
                 <b>Precio unit.: </b>$ {{ $orderPrice }} <br>
                 <b>IVA 16%: </b> $  <br>

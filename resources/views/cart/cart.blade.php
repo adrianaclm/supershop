@@ -33,7 +33,7 @@
             <h4>{{ \Cart::getTotalQuantity()}} Producto(s) en el carrito</h4><br>
             @else
             <h4>Su carrito se encuentra vacío</h4><br>
-            <a href="{{ url('/#') }}" class="btn btn-dark">Continúe en la tienda</a>
+            <a href="{{ route('inicio') }}" class="btn btn-dark">Continúe en la tienda</a>
             @endif
 
             @foreach($cartCollection as $item)
@@ -43,7 +43,7 @@
                 </div>
                 <div class="col-4 col-lg-5">
                     <p>
-                        <b><a href="{{ url('/tienda/descripcion/'.$item->id) }}">{{ $item->name }}</a></b><br>
+                        <b><a href="{{ route('producto', [$item->id]) }}">{{ $item->name }}</a></b><br>
                         <b>Precio unit.: </b>$ {{ $item->price }}<br>
                         <b>IVA 16%: </b> $ {{ ($item->price * $item->quantity) * 0.16 }} <br>
                         <b>Sub Total: </b> $ {{ \Cart::get($item->id)->getPriceSum() + (\Cart::get($item->id)->getPriceSum() * 0.16)  }}<br>
@@ -88,7 +88,7 @@
             <br><a href="{{ route('inicio') }}" class="btn btn-secondary mb-2">Continue en la tienda</a>
 
 
-            <form  class="submit-prevent-form" method="POST" action="{{ route('card.procesar') }}">
+            <form class="submit-prevent-form" method="POST" action="{{ route('card.procesar') }}">
                 @csrf
                 <div class="mt-5">
                     <label for="cedula" class="col-form-label"> {{ __('Cédula de Identidad: ') }} </label>
@@ -100,7 +100,7 @@
                     @enderror
                 </div>
                 <br>
-                <input type="submit" value="Procesar Pedido" class="btn btn-outline-danger mb-2 submit-prevent-button" >
+                <input type="submit" value="Procesar Pedido" class="btn btn-outline-danger mb-2 submit-prevent-button">
             </form><br>
 
         </div>
@@ -134,4 +134,3 @@
 </script>
 
 @endsection
-

@@ -27,7 +27,7 @@
                     <th>ACCION</th>
                 </thead>
                 <tbody>
-                    @forelse ($estado as $item)
+                    @forelse ($pedidos as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->uid}} </td>
@@ -47,6 +47,10 @@
             @if($pedidos->hasPages())
             <div class="card-footer">
                 {{ $pedidos->links() }}
+            </div>
+            @elseif($pedidos->empty())
+            <div class="card-footer">
+                No hay resultados sobre tu búsqueda.
             </div>
             @endif
         </div>

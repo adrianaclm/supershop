@@ -48,6 +48,10 @@
             <div class="card-footer">
                 {{ $productos->links() }}
             </div>
+            @elseif($productos->empty())
+            <div class="card-footer">
+                No hay resultados sobre tu búsqueda.
+            </div>
             @endif
         </div>
 

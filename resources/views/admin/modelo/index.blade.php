@@ -51,6 +51,10 @@
             <div class="card-footer">
                 {{ $modelos->links() }}
             </div>
+            @elseif($modelos->empty())
+            <div class="card-footer">
+                No hay resultados sobre tu búsqueda.
+            </div>
             @endif
 
         </div>

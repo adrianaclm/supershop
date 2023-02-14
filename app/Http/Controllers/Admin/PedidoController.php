@@ -14,14 +14,13 @@ class PedidoController extends Controller
 {
     public function index(Request $request)
     {
-        $estado = Pedido::select('pedidos.id', 'pedidos.fecha', 'pedidos.estados_id','estados.nombre', 'users.id as uid')
+        $data['q'] = $request->get('q');
+        $data['pedidos'] = 
+        Pedido::select('pedidos.id', 'pedidos.fecha', 'pedidos.estados_id','estados.nombre', 'users.id as uid')
         ->join('estados', 'pedidos.estados_id', '=', 'estados.id')
         ->join('users', 'pedidos.cart_id', '=', 'users.coduser_id' )
-        ->get();
-
-        $data['q'] = $request->get('q');
-        $data['pedidos'] = Pedido::where('id', 'like', '%' . $data['q'] . '%')->paginate(10)->withQueryString();
-        return view("admin.pedido.index", compact('estado'), $data);
+        ->where('pedidos.id', 'like', '%' . $data['q'] . '%')->paginate(10)->withQueryString();
+        return view("admin.pedido.index", $data);
     }
   
     public function store(Request $request)

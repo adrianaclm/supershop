@@ -50,6 +50,10 @@
             <div class="card-footer">
                 {{ $categorias->links() }}
             </div>
+            @elseif($categorias->empty())
+            <div class="card-footer">
+                No hay resultados sobre tu búsqueda.
+            </div>
             @endif
         </div>
     </div>

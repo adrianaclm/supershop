@@ -67,12 +67,12 @@
             @foreach ($categorias as $c)
             <div class="col-6 col-sm-4 col-md-4 col-xl-3 mb-3 articulo">
                 <div class="card border-2 rounded-4">
-                    <a href="{{ url('/' . $c->slug) }}">
+                    <a href="{{ route('categoria', [ $c->slug ]) }}">
                         <img src={!! asset('img/categoria/' . $c->imagen) !!} class="card-img-top p-2 rounded-4" width="250"
                         height="250">
                     </a>
                     <div class="text-center rounded-3 border-top border-danger border-5 p-2 " style="--bs-border-opacity: .4;">
-                        <a href="{{ url('/' . $c->slug) }}">
+                        <a href="{{ route('categoria', [ $c->slug ]) }}">
                             <h6 class="card-title text-center mb-2">{{ $c->nombre }}</h6>
                         </a>
                     </div>
@@ -97,7 +97,7 @@
                 <div class="card border-2 rounded-4" style="margin-bottom: 20px; height: auto;">
                     <img class="card-img-top mx-auto my-2 p-2 rounded rounded-4" style="height: 150px; width: 150px; display: block;" alt="{{ $r->image }}" src={!! asset('img/producto/' . $r->image) !!} >
                     <div class="card-body">
-                        <a href="{{ url('/descripcion/' . $r->id) }}">
+                        <a href="{{ route('producto', [ $r->id ]) }}">
                             <h6 class="card-title text-center mb-2">{{ $r->nombre }}</h6>
                         </a>
 

@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Configuracion;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
@@ -10,6 +11,8 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\Pedido;
 use App\Models\Produto;
 use App\Models\Detalle;
+use App\Models\Producto;
+use App\Models\User;
 
 class OrdenCreada extends Mailable
 {
@@ -24,19 +27,33 @@ class OrdenCreada extends Mailable
     public $pedido;
     public $producto;
     public $detalle;
+    public $user;
+    public $configuracion;
+
+   
 
     /**
      * Create a new message instance.
      *
      * @param  \App\Models\Pedido  $pedido
+     * @param  \App\Models\User  $pedido
+
      * @return void
      */
 
-    public function __construct(Pedido $pedido)
+    public function __construct(Pedido $pedido, User $user)
     {
-        $this->pedido = $pedido ;
-        $this->detalle;
+        $this->pedido = $pedido;
+        $this->user = $user;
         $this->producto;
+        //Detalle::select('productos.id', 'productos.nombre', 'detalles.cantidad', )
+        // ->join('productos', 'detalles.producto_id', '=', 'productos.id')
+        // ->where('detalles.pedido_id', '=', $pedido)->get();
+        // $this->user = User::select('users.name', 'users.address', 'users.id', 'users.lastname', 'users.telefono')
+        // ->join('pedidos', 'users.coduser_id', '=', 'pedidos.cart_id')
+        // ->where('pedidos.id', '=', $pedido)
+        // ->first();
+        $this->configuracion = Configuracion::select('logo')->get();
     }
 
     /**
@@ -49,7 +66,7 @@ class OrdenCreada extends Mailable
         return new Envelope(
             //from: new Address('',''),
            
-            subject: 'Orden Creada Exitosamente'
+            subject: 'Orden de Compra Creada Exitosamente'
         );
     }
 
@@ -64,8 +81,10 @@ class OrdenCreada extends Mailable
         return new Content(
             view: 'email.ordenCreada',
             with: [
-                'orderName' => $this->pedido->cedula,
+                'logo'      => $this->configuracion,
+                'userName' => $this->user->name,
                 'orderPrice' => $this->pedido->total,
+                'productoName' => $this->producto->pNombre,
             ],
         );
     }

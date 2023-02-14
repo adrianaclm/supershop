@@ -47,6 +47,10 @@
             <div class="card-footer">
                 {{ $marcas->links() }}
             </div>
+            @elseif($marcas->empty())
+            <div class="card-footer">
+                No hay resultados sobre tu búsqueda.
+            </div>
             @endif
         </div>
 

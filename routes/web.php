@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
-
+use App\Http\Controllers\Payments\FacturaController;
 
 
 Auth::routes();
@@ -37,10 +36,22 @@ Route::post('/remove', [App\Http\Controllers\CartController::class, 'remove'])->
 Route::post('/clear', [App\Http\Controllers\CartController::class, 'clear'])->name('cart.clear');
 Route::post('/procesar', [App\Http\Controllers\CartController::class, 'proceso'])->name('card.procesar');
 
+// Route::controller(App\Http\Controllers\Payments\FacturaController::class)->group(function() {
+//     Route::any('procesar/confirma', 'index')->name('card.confirmar');
+//     Route::any('procesar/factura', 'create')->name('card.create');
+// });
 
-Route::any('/procesar/pedido', [App\Http\Controllers\Payments\FacturaController::class, 'index'])->name('card.confirmar');
-Route::any('/procesar/facturacion/', [App\Http\Controllers\Payments\FacturaController::class, 'create'])->name('card.create');
+Route::get('/procesar/confirma', [App\Http\Controllers\Payments\FacturaController::class, 'index'])->name('card.confirmar');
+Route::post('/procesar/confirma', [App\Http\Controllers\Payments\FacturaController::class, 'store'])->name('card.create');
 
+
+// Route::action([App\Http\Controllers\Payments\FacturaController::class, 'create'])->name('card.create');
+// Route::match(['get', 'post'], '/procesar/facturacion'{
+//     any( App\Http\Controllers\Payments\FacturaController::class, 'index')->name('card.confirmar');
+//     post( App\Http\Controllers\Payments\FacturaController::class, 'create')->name('card.create');
+
+// });
+//Route::resource('/factura', App\Http\Controllers\Payments\FacturaController::class);
 
 
 
@@ -60,7 +71,7 @@ Route::get('/descripcion/{producto:id}', [App\Http\Controllers\FrontController::
 
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //pagos paypal
 
@@ -78,9 +89,9 @@ Route::get('/tienda/cart/payment-success', [App\Http\Controllers\Payments\Paymen
 // // paypal JS
 // Route::get('/paypal/process/{orderId}', [App\Http\Controllers\Payments\PayPalCardController::class, 'process'])->name('paypal.process');
 
-Route::get('/notification', function () {
-    $invoice = Invoice::find(1);
+// Route::get('/notification', function () {
+//     $invoice = Invoice::find(1);
  
-    return (new InvoicePaid($invoice))
-                ->toMail($invoice->user);
-});
+//     return (new InvoicePaid($invoice))
+//                 ->toMail($invoice->user);
+// });
